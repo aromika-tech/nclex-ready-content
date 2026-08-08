@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+design/social/
+design/brand/
+.DS_Store
