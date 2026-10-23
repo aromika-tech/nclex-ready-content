@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Brand cards for account launch: the welcome post, the first marketing post and
-the profile avatar.
+the profile avatar, plus the Facebook and YouTube banners and Instagram highlight covers.
 
 Same fixed brand system as build_social.py: Fraunces headings, Inter body, the brand
 palette, left alignment, one accent per card and the platform safe zones. The two
@@ -11,7 +11,12 @@ diamond with a diamond cut-out. On dark grounds it takes a mint to teal gradient
 it stays visible, as the app does with its solid override on inverse surfaces.
 
 USAGE
-  python3 build_brand.py           writes publish/brand/{welcome,marketing,avatar}.jpg
+  python3 build_brand.py           writes publish/brand/{welcome,marketing,avatar}.jpg,
+                                   banner-facebook.jpg, banner-youtube.jpg and highlight-*.jpg
+
+Banner safe zones: Facebook shows the full 1640x624 on desktop but only about the
+centre 1110px width on mobile. YouTube shows the full 2560x1440 on TV, but on mobile
+only the centre 1546x423. All text sits inside those boxes, the decoration bleeds.
 """
 import os, pathlib, tempfile
 from string import Template
@@ -123,11 +128,90 @@ svg{margin-bottom:34px}
                                      CREAM=CREAM, MINT=MINT, MARK=mark(170, MINT, TEAL, "ma"))
 
 
+BANNER = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
+$FONT_CSS
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:${W}px;height:${H}px;overflow:hidden}
+body{background:$NAVY_DEEP;font-family:'Inter',sans-serif;position:relative}
+.glow{position:absolute;border-radius:50%;filter:blur(${BLUR}px)}
+.hair{position:absolute;inset:0;background-image:
+  linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px);background-size:100% ${HAIR}px}
+.safe{position:absolute;left:50%;top:50%;width:${SW}px;height:${SH}px;
+  transform:translate(-50%,-50%);display:flex;align-items:center;gap:${GAP}px}
+.brand{display:flex;flex-direction:column;align-items:flex-start;gap:${BGAP}px;flex:0 0 auto}
+.bname{font-family:'Fraunces',serif;font-weight:500;color:$CREAM;font-size:${BN}px;
+  letter-spacing:-.02em;line-height:1}
+.div{width:2px;align-self:stretch;background:rgba(253,248,243,.16);margin:${DIVM}px 0}
+.copy{display:flex;flex-direction:column;gap:${CGAP}px}
+h1{font-family:'Fraunces',serif;font-weight:600;color:$CREAM;font-size:${H1}px;
+  line-height:1.06;letter-spacing:-.025em}
+h1 em{font-style:italic;font-weight:500;color:$MINT}
+.sub{font-size:${SUB}px;color:rgba(253,248,243,.78);line-height:1.4}
+.site{font-size:${SITEF}px;font-weight:700;color:$MINT;letter-spacing:.02em}
+</style></head><body>
+<div class="glow" style="background:$MINT;opacity:.34;width:${G1}px;height:${G1}px;top:-${G1O}px;right:-${G1O}px"></div>
+<div class="glow" style="background:$TEAL;opacity:.32;width:${G2}px;height:${G2}px;bottom:-${G2O}px;left:-${G2O}px"></div>
+<div class="hair"></div>
+<div class="safe">
+  <div class="brand">$MARK<div class="bname">NCLEX Ready</div></div>
+  <div class="div"></div>
+  <div class="copy">
+    <h1>NCLEX-RN prep, built to <em>Australian practice</em></h1>
+    <div class="sub">For internationally qualified nurses on the pathway to AHPRA&nbsp;registration</div>
+    <div class="site">$SITE</div>
+  </div>
+</div></body></html>""")
+
+
+def banner(W, H, SW, SH, k):
+    """k scales type to the safe box, so both banners share one composition."""
+    v = dict(GAP=56, BGAP=20, BN=40, DIVM=8, CGAP=16, H1=58, SUB=25, SITEF=23, MARKS=92)
+    v = {a: round(b * k) for a, b in v.items()}
+    return BANNER.substitute(
+        FONT_CSS=FONT_CSS, W=W, H=H, SW=SW, SH=SH, NAVY_DEEP=NAVY_DEEP, CREAM=CREAM,
+        MINT=MINT, TEAL=TEAL, SITE=SITE, BLUR=round(H * .16), HAIR=round(46 * k),
+        G1=round(H * 1.2), G1O=round(H * .45), G2=round(H * .9), G2O=round(H * .35),
+        MARK=mark(v.pop("MARKS"), MINT, TEAL, "mb"), **v)
+
+
+BANNER_FB = banner(1640, 624, 1060, 440, 1.0)
+BANNER_YT = banner(2560, 1440, 1500, 400, 1.36)
+
+HIGHLIGHT = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
+$FONT_CSS
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{background:radial-gradient(circle at 50% 50%,#163a72 0%,$NAVY 30%,$NAVY_DEEP 70%);
+  display:flex;align-items:center;justify-content:center}
+.c{display:flex;flex-direction:column;align-items:center;gap:30px}
+.w{font-family:'Fraunces',serif;font-weight:600;color:$CREAM;font-size:$FS;line-height:1;
+  letter-spacing:-.02em}
+.r{width:110px;height:6px;border-radius:3px;background:$MINT}
+</style></head><body><div class="c">$INNER</div></body></html>""")
+
+
+def highlight(inner_html, fs="150px"):
+    return HIGHLIGHT.substitute(FONT_CSS=FONT_CSS, NAVY=NAVY, NAVY_DEEP=NAVY_DEEP,
+                                CREAM=CREAM, MINT=MINT, FS=fs, INNER=inner_html)
+
+
+# Highlight covers show as a ~1080px-wide circle crop, so each holds one centred glyph.
+HIGHLIGHTS = {
+    "highlight-start": highlight(mark(300, MINT, TEAL, "h1")),
+    "highlight-abc": highlight('<div class="w">ABC</div><div class="r"></div>'),
+    "highlight-drugs": highlight('<div class="w">mg</div><div class="r"></div>', "190px"),
+    "highlight-au": highlight('<div class="w">AU</div><div class="r"></div>', "190px"),
+}
+
+
 def main():
     from playwright.sync_api import sync_playwright
     OUT.mkdir(parents=True, exist_ok=True)
     jobs = [("welcome", WELCOME, (1080, 1350)), ("marketing", MARKETING, (1080, 1350)),
-            ("avatar", AVATAR, (1080, 1080))]
+            ("avatar", AVATAR, (1080, 1080)),
+            ("banner-facebook", BANNER_FB, (1640, 624)),
+            ("banner-youtube", BANNER_YT, (2560, 1440))]
+    jobs += [(n, src, (1080, 1920)) for n, src in HIGHLIGHTS.items()]
     with sync_playwright() as p, tempfile.TemporaryDirectory() as tmp:
         exe = os.environ.get("CHROMIUM", "/opt/pw-browsers/chromium")
         br = p.chromium.launch(executable_path=exe if os.path.exists(exe) else None)
