@@ -28,7 +28,7 @@ from themes import THEMES, NAVY, NAVY_DEEP, TEAL, TEAL_DEEP, CREAM, MINT, INK, S
 
 HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent / "publish" / "brand"
-HANDLE, SITE = "@nclexready", "nclexready.com.au"
+HANDLE, SITE = "@nclexready.com.au", "nclexready.com.au"
 MARK_PATH = "M256 56 L456 256 L256 456 L56 256 Z M256 191 L321 256 L256 321 L191 256 Z"
 
 

@@ -33,7 +33,7 @@ from themes import THEMES, ORDER, NAVY, TEAL, TEAL_DEEP, PEACH, SAGE, GOLD, CREA
 OUT = HERE / "social"
 OUT.mkdir(exist_ok=True)
 
-HANDLE, SITE = "@nclexready", "nclexready.com.au"
+HANDLE, SITE = "@nclexready.com.au", "nclexready.com.au"
 
 FORMATS = {"portrait": (1080, 1350), "square": (1080, 1080), "story": (1080, 1920)}
 
@@ -94,7 +94,7 @@ h1{font-family:'Fraunces',serif;font-weight:600;color:$HEAD;letter-spacing:-.025
   border-right:1px solid $CARDBD;border-bottom:1px solid $CARDBD}
 .aub b{color:$LEAD}
 .answer{font-size:${PT}px;color:$MUTED;font-style:italic}
-.slide{position:absolute;bottom:${PAD}px;right:${PADX}px;font-size:19px;color:$MUTED;font-weight:700;z-index:3}
+.slide{position:absolute;bottom:calc(${PAD}px + 74px);right:${PADX}px;font-size:19px;color:$MUTED;font-weight:700;z-index:3}
 $EXTRA
 """)
 
