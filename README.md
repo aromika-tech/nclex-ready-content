@@ -19,6 +19,7 @@ design/build_social.py       the card generator
 design/themes.py             five art directions
 design/fonts/                brand woff2 files, vendored so this runs anywhere
 design/build_publish.py      JPEG cards and silent reels for automated posting
+design/build_brand.py        launch cards and the profile avatar, into publish/brand/
 publish/post-NN/             those files, one folder per post, served from jsDelivr
 publish/manifest.json        public URL and caption for every post
 ```
