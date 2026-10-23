@@ -1,0 +1,17 @@
+{
+ "out_dir": "product/readiness-test",
+ "slides": [],
+ "story_slide": {
+  "theme": "editorial",
+  "eyebrow": "FREE READINESS TEST",
+  "title": "Where do you stand <em>right now</em>?",
+  "h1": 104,
+  "points": [
+   "About 30 questions, written for Australian practice",
+   "30 to 45 minutes",
+   "A report of what to work on first",
+   "Free, no card needed"
+  ],
+  "body": "Tap the link to start"
+ }
+}

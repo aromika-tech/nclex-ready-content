@@ -42,8 +42,10 @@ def page(slide, height):
     look = LOOK[slide.get("theme", "editorial")]
     body = slide.get("body", "")
     if slide.get("points"):
-        body += '<div class="pts">' + "".join(f'<div class="pt"><i></i><div>{p}</div></div>'
-                                              for p in slide["points"]) + "</div>"
+        pts = '<div class="pts">' + "".join(f'<div class="pt"><i></i><div>{p}</div></div>'
+                                            for p in slide["points"]) + "</div>"
+        # a closing line (a call to tap the link) reads after the list, not before it
+        body = pts + (f'<div style="margin-top:44px;font-weight:600">{body}</div>' if body else "")
     src = BB.feed(slide.get("theme", "editorial"), slide["eyebrow"], slide["title"], slide.get("lead", ""),
                   body, look["accent"], look["eyefg"], look["eyebg"], slide.get("h1", 92),
                   BB.mark(54, *look["mark"], "m"))

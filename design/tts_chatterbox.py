@@ -8,7 +8,8 @@ model once. It runs in its own Python environment because Chatterbox needs PyTor
 
 Without a reference clip it uses Chatterbox's default voice. A reference clip copies
 that speaker's voice and accent, so only use a recording you have the rights to.
-Every output carries Resemble AI's inaudible Perth watermark.
+Settings favour a livelier read (exaggeration 0.7, cfg 0.35), per Chatterbox guidance for expressive
+speech. Every output carries Resemble AI's inaudible Perth watermark.
 """
 import json, sys
 import torch, torchaudio as ta
@@ -18,6 +19,6 @@ pairs = json.load(open(sys.argv[1]))
 ref = sys.argv[2] if len(sys.argv) > 2 else None
 m = ChatterboxTTS.from_pretrained(device="cuda" if torch.cuda.is_available() else "cpu")
 for text, path in pairs:
-    w = m.generate(text, audio_prompt_path=ref, exaggeration=0.5, cfg_weight=0.5)
+    w = m.generate(text, audio_prompt_path=ref, exaggeration=0.7, cfg_weight=0.35)
     ta.save(path, w, m.sr)
     print(path, flush=True)

@@ -1,0 +1,35 @@
+{
+ "out_dir": "product/next-gen-formats",
+ "theme": "chart",
+ "style": "compare",
+ "eyebrow": "NEXT GEN NCLEX",
+ "seed": 7,
+ "lines": [
+  {
+   "show": "The Next Gen NCLEX formats",
+   "say": "These are the Next Gen N-Clex formats you'll practise."
+  },
+  {
+   "kind": "hook",
+   "show": "The exam now tests clinical judgement, not recall",
+   "say": "The exam now tests clinical judgement, not just recall."
+  },
+  {
+   "show": "Bow-ties: the condition, the actions, what to monitor",
+   "say": "Bow-ties ask for the condition, the actions to take, and what to monitor."
+  },
+  {
+   "show": "Matrix grids, highlight text and cloze items",
+   "say": "Then there are matrix grids, highlight text, and cloze items."
+  },
+  {
+   "show": "Trend items and unfolding case studies",
+   "say": "And trend items and unfolding case studies, across several screens."
+  },
+  {
+   "kind": "au",
+   "show": "2,500+ Next Gen items, taught to Australian practice",
+   "say": "N-Clex Ready has over two and a half thousand Next Gen items, all taught to Australian practice."
+  }
+ ]
+}

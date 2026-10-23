@@ -1,0 +1,35 @@
+{
+ "out_dir": "product/readiness-test",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "FREE READINESS TEST",
+ "seed": 5,
+ "lines": [
+  {
+   "show": "Where do you stand right now?",
+   "say": "Where do you stand on the N-Clex, right now?"
+  },
+  {
+   "kind": "hook",
+   "show": "A free readiness test, written for Australian practice",
+   "say": "Find out with a free readiness test, written for Australian nursing practice."
+  },
+  {
+   "show": "About 30 questions",
+   "say": "It's about thirty questions."
+  },
+  {
+   "show": "30 to 45 minutes, at your own pace",
+   "say": "It takes thirty to forty-five minutes, at your own pace."
+  },
+  {
+   "show": "A report showing which areas to work on first",
+   "say": "And your report shows which areas to work on first."
+  },
+  {
+   "kind": "au",
+   "show": "Free, no card needed. nclexready.com.au",
+   "say": "It's free, and you don't need a card. Find it at N-Clex Ready dot com dot A U."
+  }
+ ]
+}

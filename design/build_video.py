@@ -44,7 +44,9 @@ from themes import THEMES, NAVY, TEAL, CREAM
 W, H = 1080, 1920
 FPS = 30
 GAP = 0.35          # silence after each spoken line, seconds
-END_HOLD = 2.6      # end card, seconds
+END_HOLD = 2.6      # end card, seconds, when it has no spoken call to action
+CTA_SHOW = "Take the free readiness test"
+CTA_SAY = "Try the free readiness test. The link is in our bio."
 VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma", "chatterbox": "default"}
 RATE = "-4%"
 
@@ -88,6 +90,8 @@ h1.dim{opacity:.4}
 .end .w{font-family:'Fraunces',serif;font-weight:600;color:$HEAD;font-size:92px;line-height:1}
 .end .s{font-size:34px;color:$BODYC;max-width:760px;line-height:1.4}
 .end .u{font-size:30px;font-weight:700;color:$SITEC}
+.end .cta{font-size:40px;font-weight:700;color:#ffffff;background:$ACCENT;padding:26px 46px;border-radius:999px;margin-top:20px}
+.end .s2{font-size:28px;color:$MUTED}
 </style></head><body>$DECO
 <div class="wrap">
   <div class="top"><div class="mark"><span></span></div><div class="bname">NCLEX Ready</div><div class="bhandle">$HANDLE</div></div>
@@ -143,7 +147,9 @@ def frame_html(t, theme, seq, step, end=False):
     if end:
         end_html = (f'<div class="end"><div class="w">NCLEX Ready</div>'
                     f'<div class="s">NCLEX-RN prep, taught to Australian practice</div>'
-                    f'<div class="u">{B.SITE}</div></div>')
+                    f'<div class="cta">{esc(CTA_SHOW)}</div>'
+                    f'<div class="u">{B.SITE}/diagnostic</div>'
+                    f'<div class="s2">7 days free. No card needed.</div></div>')
     extra = Template(th["extra_css"]).safe_substitute(ACCENT=accent, FIELDH="0", PADTOP="150px",
                                                       PADRAIL="106px", PADCARD="150px 106px 230px 142px")
     if theme == "block":
@@ -161,7 +167,7 @@ def frame_html(t, theme, seq, step, end=False):
 
 def pick_bed(template, seed):
     ledger = json.loads((ROOT / "music" / "licences.json").read_text())
-    want = MOOD_FOR.get(template, "calm")
+    want = "uplifting"      # owner, 24 Oct: beds should be louder and more uplifting
     pool = [l for l in ledger if want in l["mood"] and l["seconds"] >= 60] or \
            [l for l in ledger if l["seconds"] >= 60]
     return random.Random(seed).choice(pool)
@@ -231,9 +237,10 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     said = [l.get("say", l["show"]) for l in spec["lines"]] if spec else script_for(t)
     if said and len(said) != len(seq):
         raise SystemExit(f"post {t['id']}: script has {len(said)} lines, the video has {len(seq)} steps")
-    wavs = [tmp / f"v{i}.wav" for i in range(len(seq))]
-    spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)]
+    wavs = [tmp / f"v{i}.wav" for i in range(len(seq))] + [tmp / "vcta.wav"]
+    spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)] + [CTA_SAY]
     durs = [d + GAP for d in tts_batch(engine, list(zip(spoken, wavs)), kokoro)]
+    cta_len = durs.pop()            # spoken over the end card
     # frames: one per spoken step, plus the end card
     pngs = []
     for step in range(len(seq)):
@@ -244,9 +251,9 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     p = tmp / "fend.png"
     pg = br.new_page(viewport={"width": W, "height": H})
     pg.set_content(frame_html(t, theme, seq, len(seq) - 1, end=True)); pg.wait_for_timeout(200)
-    pg.screenshot(path=str(p)); pg.close(); pngs.append(p); durs.append(END_HOLD)
+    pg.screenshot(path=str(p)); pg.close(); pngs.append(p); durs.append(max(END_HOLD, cta_len + 0.9))
 
-    # narration track: each line followed by its gap, then silence under the end card
+    # narration track: each line followed by its gap, the call to action under the end card
     concat = tmp / "voice.txt"
     with concat.open("w") as f:
         for w_, d in zip(wavs, durs):
@@ -256,7 +263,7 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     for i, (w_, d) in enumerate(zip(wavs, durs)):
         parts.append(f"[{i}:a]apad=whole_dur={d:.3f},aresample=44100,aformat=channel_layouts=mono[a{i}]")
     filt = ";".join(parts) + ";" + "".join(f"[a{i}]" for i in range(len(wavs))) + \
-        f"concat=n={len(wavs)}:v=0:a=1,apad=pad_dur={END_HOLD}[v]"
+        f"concat=n={len(wavs)}:v=0:a=1,apad=pad_dur=0.5[v]"
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     for w_ in wavs:
         cmd += ["-i", str(w_)]
@@ -280,15 +287,15 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
             "-preset", "medium", "-crf", "23", str(pic)]
     subprocess.run(cmd, check=True)
 
-    # mix: bed from a random point, faded, ducked under the voice
+    # mix: an uplifting bed from a random point, faded, dipped gently under the voice
     bed = pick_bed(t["template"], t["id"])
     bed_path = ROOT / "music" / bed["file"]
     start = random.Random(t["id"]).uniform(0, max(0, bed["seconds"] - total - 1))
     out = out_dir / ("short.preview.mp4" if engine == "edge" else "short.mp4")
-    mix = (f"[1:a]atrim=start={start:.2f}:duration={total:.3f},asetpts=PTS-STARTPTS,volume=0.32,"
+    mix = (f"[1:a]atrim=start={start:.2f}:duration={total:.3f},asetpts=PTS-STARTPTS,volume=0.6,"
            f"afade=t=in:d=0.8,afade=t=out:st={total - 1.6:.3f}:d=1.6[bed];"
            f"[2:a]aresample=44100,aformat=channel_layouts=stereo,asplit=2[vo][sc];"
-           f"[bed][sc]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[duck];"
+           f"[bed][sc]sidechaincompress=threshold=0.06:ratio=3:attack=30:release=500[duck];"
            f"[duck][vo]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(pic), "-i", str(bed_path), "-i", str(voice_wav),
                     "-filter_complex", mix, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac",
