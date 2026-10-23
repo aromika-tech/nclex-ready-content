@@ -18,6 +18,9 @@ content/resource-library.md  every source used, by topic
 design/build_social.py       the card generator
 design/themes.py             five art directions
 design/fonts/                brand woff2 files, vendored so this runs anywhere
+design/build_publish.py      JPEG cards and silent reels for automated posting
+publish/post-NN/             those files, one folder per post, served from jsDelivr
+publish/manifest.json        public URL and caption for every post
 ```
 
 ## Running it
@@ -34,6 +37,14 @@ cd ../design
 python3 build_social.py --id 27              # every size, in the assigned look
 python3 build_social.py --captions --id 27   # the caption
 python3 build_social.py --week 4             # a whole week
+```
+
+## Automated posting
+
+Instagram and Facebook fetch media from a public URL and take JPEG only, so every post is pre-rendered into `publish/` and served through jsDelivr (`https://cdn.jsdelivr.net/gh/aromika-tech/nclex-ready-content@main/publish/...`). The daily task posts from `publish/manifest.json`. After editing a topic, rebuild that post and commit:
+
+```bash
+cd design && python3 build_publish.py --id 27   # or --all
 ```
 
 Art direction is assigned per template in `THEME_FOR_TEMPLATE`, so no theme flag is needed in normal use. Every slide of a carousel uses the same look, which the generator enforces.
