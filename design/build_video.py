@@ -43,7 +43,8 @@ from themes import THEMES, NAVY, TEAL, CREAM
 
 W, H = 1080, 1920
 FPS = 30
-GAP = 0.35          # silence after each spoken line, seconds
+GAP = 0.6           # silence after each spoken line, seconds (owner, 24 Oct: a touch slower)
+TEMPO = {"chatterbox": 0.93}   # slows a fast engine slightly, pitch unchanged
 END_HOLD = 2.6      # end card, seconds, when it has no spoken call to action
 CTA_SHOW = "Take the free readiness test"
 CTA_SAY = "Try the free readiness test. The link is in our bio."
@@ -190,7 +191,7 @@ def tts_batch(engine, items, kokoro=None):
         lst.write_text(json.dumps([[t, str(p)] for t, p in items]))
         py = os.environ.get("CHATTERBOX_PY", sys.executable)
         subprocess.run([py, str(HERE / "tts_chatterbox.py"), str(lst)], check=True, capture_output=True)
-        return [finish_wav(pathlib.Path(p)) for _, p in items]
+        return [finish_wav(pathlib.Path(p), TEMPO["chatterbox"]) for _, p in items]
     return [tts(engine, t, p, kokoro) for t, p in items]
 
 
@@ -218,12 +219,12 @@ def tts(engine, text, path, kokoro=None):
     return finish_wav(wav)
 
 
-def finish_wav(wav):
+def finish_wav(wav, tempo=1.0):
     # trim the engine's own leading and trailing silence, so GAP alone sets the pacing
     trimmed = wav.with_name(wav.stem + "_t.wav")
     sil = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(wav), "-af",
-                    f"{sil},areverse,{sil},areverse", str(trimmed)], check=True)
+                    f"{sil},areverse,{sil},areverse,atempo={tempo}", str(trimmed)], check=True)
     trimmed.replace(wav)
     out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(wav)],
                          capture_output=True, text=True).stdout
