@@ -20,6 +20,8 @@ design/themes.py             five art directions
 design/fonts/                brand woff2 files, vendored so this runs anywhere
 design/build_publish.py      JPEG cards and silent reels for automated posting
 design/build_brand.py        launch cards and the profile avatar, into publish/brand/
+design/build_video.py        voiced 9:16 Reels and Shorts with captions and a music bed, into publish/post-NN/short.mp4
+music/                       CC0 background music, with licences.json as the proof of licence
 publish/post-NN/             those files, one folder per post, served from jsDelivr
 publish/manifest.json        public URL and caption for every post
 ```
