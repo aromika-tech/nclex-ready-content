@@ -1,0 +1,6 @@
+{
+ "posted": 0,
+ "last": null,
+ "paused": false,
+ "note": "Cycle position for the morning autopilot. posted = how many of the 70 cycle posts have been queued. The run reads this, adds one after queuing, and commits it. Moved here from Drive on 23 Oct 2026 because the Drive connector cannot write file contents."
+}
