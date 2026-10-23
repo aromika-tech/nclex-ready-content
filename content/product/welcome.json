@@ -1,0 +1,55 @@
+{
+ "out_dir": "product/welcome",
+ "counted": "2026-10-23 live counts: 7,716 active questions, 2,652 Next Gen, 118 case studies, 4,375 flashcards, 406 lessons. Public copy rounds down: 7,500+, 2,500+, 100+, 4,000+, 400+.",
+ "slides": [
+  {
+   "theme": "editorial",
+   "eyebrow": "WELCOME",
+   "title": "Welcome to <em>NCLEX&nbsp;Ready</em>",
+   "h1": 104,
+   "lead": "NCLEX-RN prep for internationally qualified nurses on the pathway to AHPRA registration.",
+   "body": "Taught to Australian clinical practice and drawn from primary sources. Swipe to see what is inside."
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "WHAT IS INSIDE",
+   "title": "Everything you practise, <em>in one place</em>",
+   "h1": 84,
+   "points": [
+    "7,500+ practice questions",
+    "2,500+ in Next Gen NCLEX formats, from bow-ties to matrix grids",
+    "100+ unfolding case studies",
+    "4,000+ flashcards and 400+ short lessons",
+    "Explanations taught to Australian practice and primary sources"
+   ]
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "HOW IT WORKS",
+   "title": "From your first question <em>to exam day</em>",
+   "h1": 84,
+   "points": [
+    "Take the free readiness test to see where you stand",
+    "Get a study plan built around your weak areas",
+    "Practise by category, then sit timed mock exams",
+    "Track your progress across every NCLEX category"
+   ]
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "START FREE",
+   "title": "Try everything free <em>for 7 days</em>",
+   "h1": 96,
+   "lead": "Full access. No card needed.",
+   "body": "Start with the free readiness test at nclexready.com.au"
+  }
+ ],
+ "story_slide": {
+  "theme": "editorial",
+  "eyebrow": "WELCOME",
+  "title": "Welcome to <em>NCLEX&nbsp;Ready</em>",
+  "h1": 110,
+  "lead": "NCLEX-RN prep for internationally qualified nurses on the pathway to AHPRA registration.",
+  "body": "7,500+ practice questions, taught to Australian practice. Start with the free readiness test at nclexready.com.au"
+ }
+}

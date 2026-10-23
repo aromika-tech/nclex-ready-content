@@ -1,0 +1,35 @@
+{
+ "out_dir": "product/welcome",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "WELCOME",
+ "seed": 3,
+ "lines": [
+  {
+   "show": "Welcome to NCLEX Ready",
+   "say": "Welcome to N-Clex Ready."
+  },
+  {
+   "kind": "hook",
+   "show": "NCLEX-RN prep for internationally qualified nurses on the AHPRA pathway",
+   "say": "We help internationally qualified nurses prepare for the N-Clex R-N, on the pathway to registration in Australia."
+  },
+  {
+   "show": "7,500+ practice questions, 2,500+ in Next Gen NCLEX formats",
+   "say": "There are more than seven and a half thousand practice questions, and over two and a half thousand in the Next Gen formats the exam now uses."
+  },
+  {
+   "show": "100+ case studies, 4,000+ flashcards and 400+ short lessons",
+   "say": "Plus more than a hundred case studies, four thousand flashcards, and four hundred short lessons."
+  },
+  {
+   "show": "Every explanation taught to Australian practice and primary sources",
+   "say": "Every explanation is taught to Australian practice, from primary sources."
+  },
+  {
+   "kind": "au",
+   "show": "Start with a free readiness test, then 7 days free. No card needed.",
+   "say": "Start with a free readiness test, then try everything free for seven days. No card needed."
+  }
+ ]
+}

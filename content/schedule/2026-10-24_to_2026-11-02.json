@@ -1,0 +1,55 @@
+{
+ "about": "The 10-day launch schedule, read by the 4:00 IST run. Times are IST. Build only the items for the run's own day. Clinical posts come from the 70-topic cycle (publish/post-NN, manifest.json). Product posts are built from the copy below with design/build_product.py (cards) or design/build_video.py --spec (Reels), in light looks only (editorial, notecard, chart), and saved under publish/product/<slug>/. Product numbers are rounded down and were checked on 23 Oct: 7,500+ questions, 2,500+ Next Gen, 100+ case studies, 4,000+ flashcards, 400+ lessons. Recount before using any number, and never print the exact count.",
+ "formats": {
+  "card": "IG post (feed.jpg) + FB post (feed.jpg) at 06:00, IG and FB Story (story.jpg) at 07:00",
+  "carousel": "IG post with slide1..5 + FB post with slide1..5 at 06:00, Story (story.jpg) at 07:00",
+  "reel": "IG Reel + FB Reel + YouTube Short (short.mp4) at 06:00, Story (story.jpg) at 07:00. Write content/scripts/post-NN.json first, then build_video.py --id NN"
+ },
+ "days": [
+  {"date": "2026-10-24", "clinical": {"post": 1, "format": "card"},
+   "product": {"slug": "readiness-test", "time": "06:45", "format": "card", "look": "editorial",
+    "eyebrow": "FREE READINESS TEST", "title": "Where do you stand <em>right now</em>?",
+    "points": ["About 30 questions, written for Australian nursing practice", "30 to 45 minutes, at your own pace", "A report showing which areas to work on first", "Free, with no card needed"],
+    "caption": "Not sure where to start with the NCLEX-RN?\n\nThe free readiness test is about 30 questions written for Australian nursing practice. It takes 30 to 45 minutes, and your report shows which areas to work on first.\n\nIt is free, and no card is needed. Link in bio, or go to nclexready.com.au/diagnostic\n\n#NCLEXRN #IQNAustralia #AHPRAPathway #NursingAustralia #NCLEXPrep"}},
+  {"date": "2026-10-25", "clinical": {"post": 2, "format": "carousel"},
+   "product": {"slug": "next-gen-formats", "time": "06:45", "format": "carousel", "look": "notecard",
+    "slides": [
+     {"eyebrow": "NEXT GEN NCLEX", "title": "The formats <em>you will practise</em>", "lead": "The NCLEX-RN now tests clinical judgement with new item types. You practise every one of them."},
+     {"eyebrow": "NEXT GEN NCLEX", "title": "Case-based items", "points": ["Bow-tie: the condition, the actions and what to monitor", "Unfolding case studies across several screens", "Trend items that track a patient over time"]},
+     {"eyebrow": "NEXT GEN NCLEX", "title": "Grids and text", "points": ["Matrix grids: one answer per row", "Highlight text in notes and orders", "Drag-and-drop and drop-down cloze"]},
+     {"eyebrow": "NEXT GEN NCLEX", "title": "And the classics", "points": ["Single best answer", "Select all that apply, scored the way the exam scores it", "2,500+ Next Gen items across all formats"]}],
+    "caption": "The Next Gen NCLEX tests clinical judgement, not recall.\n\nYou will see bow-ties, matrix grids, highlight-text items, cloze items, trend items and unfolding case studies. NCLEX Ready has 2,500+ Next Gen items across every one of those formats, taught to Australian practice.\n\nSwipe for what each one asks of you.\n\n#NCLEXRN #NextGenNCLEX #IQNAustralia #AHPRAPathway #NCLEXPrep"}},
+  {"date": "2026-10-26", "clinical": {"post": 3, "format": "reel"},
+   "product": {"slug": "australian-practice", "time": "06:45", "format": "card", "look": "chart",
+    "eyebrow": "TAUGHT TO AUSTRALIAN PRACTICE", "title": "The words you will <em>chart here</em>",
+    "points": ["Paracetamol, adrenaline and BSL", "MET calls and track-and-trigger obs charts", "Medicines framed by the TGA and Australian Prescriber", "Standards from the NMBA and ACSQHC"],
+    "caption": "The NCLEX-RN is one exam. Your registration is in Australia.\n\nEvery explanation in NCLEX Ready uses the language and standards you will work with here: paracetamol and adrenaline, BSL and obs, MET calls, and the NMBA and ACSQHC standards behind them.\n\n#NCLEXRN #IQNAustralia #AHPRAPathway #NursingAustralia #NCLEXPrep"}},
+  {"date": "2026-10-27", "clinical": {"post": 4, "format": "card"}},
+  {"date": "2026-10-28", "clinical": {"post": 5, "format": "reel"},
+   "product": {"slug": "practice-session", "time": "06:45", "format": "reel", "look": "notecard",
+    "lines": [
+     {"show": "A practice session, start to finish", "say": "Here's what a practice session looks like."},
+     {"kind": "hook", "show": "Pick a category, or follow your study plan", "say": "Pick a category, or let your study plan choose for you."},
+     {"show": "Answer at exam pace, with a timer if you want one", "say": "Answer at exam pace, with a timer if you want one."},
+     {"show": "See why each option is right or wrong", "say": "Then see why each option is right, or wrong."},
+     {"show": "Missed questions come back in your weekly mistakes review", "say": "Anything you miss comes back in your weekly mistakes review."},
+     {"kind": "au", "show": "Every explanation taught to Australian practice", "say": "And every explanation is taught to Australian practice."}],
+    "caption": "What a practice session looks like.\n\nPick a category or follow your study plan, answer at exam pace, then see why each option is right or wrong. Anything you miss comes back in your weekly mistakes review.\n\nNarrated with an AI voice.\n\n#NCLEXRN #IQNAustralia #AHPRAPathway #NursingAustralia #NCLEXPrep"}},
+  {"date": "2026-10-29", "clinical": {"post": 6, "format": "card"}, "note": "Question of the day. On 30 Oct, the run adds the answer as a comment on this post."},
+  {"date": "2026-10-30", "clinical": {"post": 7, "format": "reel"},
+   "product": {"slug": "founder", "time": "06:45", "format": "card", "look": "editorial",
+    "eyebrow": "WHO BUILT THIS", "title": "Built by an <em>Australian registered nurse</em>",
+    "lead": "Dhruval Patel is an Australian-trained registered nurse with five years of clinical experience.",
+    "body": "He has helped overseas-qualified nurse friends through the AHPRA pathway, and built NCLEX Ready around what they needed: exam practice that matches the way nursing is practised here.",
+    "caption": "Who is behind NCLEX Ready?\n\nDhruval Patel, an Australian-trained registered nurse with five years of clinical experience. He has helped overseas-qualified nurse friends through the AHPRA pathway, and built NCLEX Ready around what they needed: exam practice that matches the way nursing is practised here.\n\n#NCLEXRN #IQNAustralia #AHPRAPathway #NursingAustralia #NCLEXPrep"}},
+  {"date": "2026-10-31", "clinical": {"post": 8, "format": "reel"}},
+  {"date": "2026-11-01", "clinical": {"post": 9, "format": "card"},
+   "product": {"slug": "study-plans", "time": "06:45", "format": "carousel", "look": "editorial",
+    "slides": [
+     {"eyebrow": "YOUR STUDY PLAN", "title": "A plan that fits <em>your exam date</em>", "lead": "Choose 8, 12, 16 or 20 weeks, paid once, or a monthly Self-study pass."},
+     {"eyebrow": "EACH WEEK", "title": "One list, about <em>5 to 6 hours</em>", "points": ["Short lessons, questions and flashcards", "A review of your mistakes", "A short weekly check", "Do them in any order, on any days"]},
+     {"eyebrow": "START FREE", "title": "Try it free <em>for 7 days</em>", "lead": "Full access. No card needed.", "body": "Start with the free readiness test at nclexready.com.au"}],
+    "caption": "A study plan that fits your exam date.\n\nChoose 8, 12, 16 or 20 weeks, paid once, or a monthly Self-study pass. Each week is one list of about 5 to 6 hours: short lessons, questions, flashcards, a review of your mistakes and a short weekly check.\n\nTry everything free for 7 days, no card needed. Link in bio.\n\n#NCLEXRN #IQNAustralia #AHPRAPathway #NursingAustralia #NCLEXPrep"}},
+  {"date": "2026-11-02", "clinical": {"post": 10, "format": "reel"}}
+ ]
+}

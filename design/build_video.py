@@ -17,6 +17,8 @@ Engines:
           AZURE_SPEECH_REGION in the environment.
   edge    the same Natasha voice through Edge's read-aloud service, for previews only.
           It is not licensed for commercial use, so it writes short.preview.mp4.
+  chatterbox  Chatterbox (MIT) on CPU in its default voice, via tts_chatterbox.py in the
+          Python set by $CHATTERBOX_PY. Used until the Azure key exists.
   kokoro  Kokoro-82M on CPU (Apache-2.0), kept as an offline fallback.
 
 The look is the topic's assigned theme from themes.py, so a video matches its card.
@@ -43,7 +45,7 @@ W, H = 1080, 1920
 FPS = 30
 GAP = 0.35          # silence after each spoken line, seconds
 END_HOLD = 2.6      # end card, seconds
-VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma"}
+VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma", "chatterbox": "default"}
 RATE = "-4%"
 
 # Mood per template, matched against the mood field in music/licences.json.
@@ -124,6 +126,7 @@ def speakable(text):
 def frame_html(t, theme, seq, step, end=False):
     th = THEMES[theme]
     base_accent, tint, eyebrow = B.STYLE[t["template"]]
+    eyebrow = t.get("eyebrow", eyebrow)
     accent = B.MIDNIGHT_ACCENT[t["template"]] if theme == "midnight" else base_accent
     efg = {"ACCENT": accent, "ACCENT_SOLID": accent}.get(th["eyebrow_fg"], th["eyebrow_fg"])
     ebg = {"TINT": tint, "ACCENT_SOLID": accent}.get(th["eyebrow_bg"], th["eyebrow_bg"])
@@ -174,6 +177,17 @@ def ssml(text, voice):
             f"<prosody rate='{RATE}'>{html.escape(text)}</prosody></voice></speak>")
 
 
+def tts_batch(engine, items, kokoro=None):
+    """Voice every (text, path) pair and return their lengths in seconds."""
+    if engine == "chatterbox":
+        lst = pathlib.Path(items[0][1]).with_name("lines.json")
+        lst.write_text(json.dumps([[t, str(p)] for t, p in items]))
+        py = os.environ.get("CHATTERBOX_PY", sys.executable)
+        subprocess.run([py, str(HERE / "tts_chatterbox.py"), str(lst)], check=True, capture_output=True)
+        return [finish_wav(pathlib.Path(p)) for _, p in items]
+    return [tts(engine, t, p, kokoro) for t, p in items]
+
+
 def tts(engine, text, path, kokoro=None):
     """Write one spoken line to a WAV file and return its length in seconds."""
     wav = pathlib.Path(path)
@@ -195,6 +209,10 @@ def tts(engine, text, path, kokoro=None):
         import soundfile as sf
         samples, sr = kokoro.create(speakable(text), voice=VOICE["kokoro"], speed=1.0, lang="en-gb")
         sf.write(wav, samples, sr)
+    return finish_wav(wav)
+
+
+def finish_wav(wav):
     # trim the engine's own leading and trailing silence, so GAP alone sets the pacing
     trimmed = wav.with_name(wav.stem + "_t.wav")
     sil = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05"
@@ -206,19 +224,16 @@ def tts(engine, text, path, kokoro=None):
     return float(out)
 
 
-def build(t, engine, br, kokoro, out_dir):
-    theme = B.theme_for(t)
-    seq = lines_for(t)
+def build(t, engine, br, kokoro, out_dir, spec=None):
+    theme = spec.get("theme", "editorial") if spec else B.theme_for(t)
+    seq = [(l.get("kind", "pt"), l["show"]) for l in spec["lines"]] if spec else lines_for(t)
     tmp = pathlib.Path(tempfile.mkdtemp())
-    said = script_for(t)
+    said = [l.get("say", l["show"]) for l in spec["lines"]] if spec else script_for(t)
     if said and len(said) != len(seq):
         raise SystemExit(f"post {t['id']}: script has {len(said)} lines, the video has {len(seq)} steps")
-    durs, wavs = [], []
-    for i, (_, text) in enumerate(seq):
-        wav = tmp / f"v{i}.wav"
-        spoken = said[i] if said else text
-        durs.append(tts(engine, spoken, wav, kokoro) + GAP)
-        wavs.append(wav)
+    wavs = [tmp / f"v{i}.wav" for i in range(len(seq))]
+    spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)]
+    durs = [d + GAP for d in tts_batch(engine, list(zip(spoken, wavs)), kokoro)]
     # frames: one per spoken step, plus the end card
     pngs = []
     for step in range(len(seq)):
@@ -284,9 +299,10 @@ def build(t, engine, br, kokoro, out_dir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", type=int); ap.add_argument("--all", action="store_true")
-    ap.add_argument("--engine", choices=["azure", "edge", "kokoro"], default="azure")
+    ap.add_argument("--spec", help="a JSON video spec for posts outside the curriculum (welcome, product)")
+    ap.add_argument("--engine", choices=["azure", "edge", "chatterbox", "kokoro"], default="azure")
     a = ap.parse_args()
-    if not (a.id or a.all): ap.error("choose --id N or --all")
+    if not (a.id or a.all or a.spec): ap.error("choose --id N, --spec FILE or --all")
     if a.engine == "azure" and not os.environ.get("AZURE_SPEECH_KEY"):
         ap.error("AZURE_SPEECH_KEY is not set. Use --engine edge for a preview")
     if a.engine == "edge":
@@ -298,9 +314,20 @@ def main():
         kd = pathlib.Path(os.environ.get("KOKORO_DIR", "."))
         kokoro = Kokoro(str(kd / "kokoro-v1.0.onnx"), str(kd / "voices-v1.0.bin"))
     ids = {t["id"] for t in B.CURRICULUM.TOPICS} if a.all else {a.id}
+    if a.spec:
+        ids = set()
     with sync_playwright() as p:
         exe = os.environ.get("CHROMIUM", "/opt/pw-browsers/chromium")
         br = p.chromium.launch(executable_path=exe if os.path.exists(exe) else None)
+        if a.spec:
+            spec = json.loads(pathlib.Path(a.spec).read_text())
+            t = {"id": spec.get("seed", 1), "template": spec.get("style", "fact"), "title": spec["lines"][0]["show"],
+                 "eyebrow": spec.get("eyebrow", "NCLEX READY")}
+            d = ROOT / "publish" / spec["out_dir"]
+            d.mkdir(parents=True, exist_ok=True)
+            out, total, bed = build(t, a.engine, br, kokoro, d, spec)
+            print(f"{spec['out_dir']}: {out.name} {total:.1f}s, bed {bed['file']}")
+            br.close(); return
         for t in [t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
             d = ROOT / "publish" / f"post-{t['id']:02d}"
             d.mkdir(parents=True, exist_ok=True)
