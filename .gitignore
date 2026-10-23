@@ -3,3 +3,4 @@ __pycache__/
 design/social/
 design/brand/
 .DS_Store
+*.preview.mp4

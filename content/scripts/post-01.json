@@ -1,0 +1,12 @@
+{
+ "post": 1,
+ "title": "Prioritisation: why ABC beats everything else",
+ "lines": [
+  {"say": "Prioritisation. Why A, B, C beats everything else."},
+  {"say": "Two patients need you at the same time. Who do you see first? It's not a judgement call."},
+  {"say": "Airway comes first, then breathing, then circulation. And on the exam, A, B, C beats Maslow whenever both apply."},
+  {"say": "Next, unstable beats stable. A sudden change in someone's condition outranks a result that's abnormal, but steady."},
+  {"say": "And actual problems usually come before potential ones. The exception? A potential airway problem. That always comes first."},
+  {"say": "In Australia, emergency departments triage on the Australasian Triage Scale, from category one to five."}
+ ]
+}

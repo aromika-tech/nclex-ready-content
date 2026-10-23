@@ -4,18 +4,30 @@
 Each video reveals a topic one line at a time: the title as the question, the hook,
 three teaching points, the Australian practice note, then the brand end card. The line
 being spoken is highlighted and the rest are dimmed, so the on-screen text doubles as
-captions for people watching with the sound off. Narration is Kokoro-82M (Apache-2.0,
-runs on CPU). A CC0 bed from music/ plays underneath and ducks under the voice.
+captions for people watching with the sound off. A CC0 bed from music/ plays underneath
+and ducks under the voice.
+
+Narration is Microsoft's en-AU Natasha neural voice through Azure Speech (free F0 tier),
+read from content/scripts/post-NN.json when a script exists. A script is a list of
+{"say": "..."} lines, one per on-screen step, written to be spoken rather than read.
+Without one, the card lines are spoken as written.
+
+Engines:
+  azure   the only engine for anything that gets published. Needs AZURE_SPEECH_KEY and
+          AZURE_SPEECH_REGION in the environment.
+  edge    the same Natasha voice through Edge's read-aloud service, for previews only.
+          It is not licensed for commercial use, so it writes short.preview.mp4.
+  kokoro  Kokoro-82M on CPU (Apache-2.0), kept as an offline fallback.
 
 The look is the topic's assigned theme from themes.py, so a video matches its card.
 
 USAGE
-  python3 build_video.py --id 1                 publish/post-01/short.mp4
-  python3 build_video.py --id 1 --voice bm_george
-  python3 build_video.py --all
+  python3 build_video.py --id 1                     publish/post-01/short.mp4 (azure)
+  python3 build_video.py --id 1 --engine edge       a preview, never published
 
-Needs: pip install kokoro-onnx soundfile, plus the two model files in $KOKORO_DIR
-(kokoro-v1.0.onnx and voices-v1.0.bin from the kokoro-onnx model-files-v1.0 release).
+Build one video when the plan calls for it, not the whole cycle at once.
+Needs Playwright, Pillow and ffmpeg. edge needs pip install edge-tts. kokoro needs
+pip install kokoro-onnx soundfile and the model files in $KOKORO_DIR.
 """
 import argparse, html, json, os, pathlib, random, subprocess, sys, tempfile
 from string import Template
@@ -31,7 +43,8 @@ W, H = 1080, 1920
 FPS = 30
 GAP = 0.35          # silence after each spoken line, seconds
 END_HOLD = 2.6      # end card, seconds
-DEFAULT_VOICE = "bf_emma"
+VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma"}
+RATE = "-4%"
 
 # Mood per template, matched against the mood field in music/licences.json.
 MOOD_FOR = {"fact": "calm", "auvs": "calm", "ref": "calm", "compare": "ambient",
@@ -151,21 +164,60 @@ def pick_bed(template, seed):
     return random.Random(seed).choice(pool)
 
 
-def tts(kokoro, text, voice, path):
-    import soundfile as sf
-    samples, sr = kokoro.create(speakable(text), voice=voice, speed=1.0, lang="en-gb")
-    sf.write(path, samples, sr)
-    return len(samples) / sr
+def script_for(t):
+    p = ROOT / "content" / "scripts" / f"post-{t['id']:02d}.json"
+    return [l["say"] for l in json.loads(p.read_text())["lines"]] if p.exists() else None
 
 
-def build(t, voice, br, kokoro, out_dir):
+def ssml(text, voice):
+    return (f"<speak version='1.0' xml:lang='en-AU'><voice name='{voice}'>"
+            f"<prosody rate='{RATE}'>{html.escape(text)}</prosody></voice></speak>")
+
+
+def tts(engine, text, path, kokoro=None):
+    """Write one spoken line to a WAV file and return its length in seconds."""
+    wav = pathlib.Path(path)
+    if engine == "azure":
+        import urllib.request
+        key, region = os.environ["AZURE_SPEECH_KEY"], os.environ["AZURE_SPEECH_REGION"]
+        req = urllib.request.Request(
+            f"https://{region}.tts.speech.microsoft.com/cognitiveservices/v1",
+            data=ssml(text, VOICE["azure"]).encode(), method="POST",
+            headers={"Ocp-Apim-Subscription-Key": key, "Content-Type": "application/ssml+xml",
+                     "X-Microsoft-OutputFormat": "riff-24khz-16bit-mono-pcm", "User-Agent": "nclexready-video"})
+        wav.write_bytes(urllib.request.urlopen(req, timeout=60).read())
+    elif engine == "edge":
+        mp3 = wav.with_suffix(".mp3")
+        subprocess.run([sys.executable, "-m", "edge_tts", "--voice", VOICE["edge"], f"--rate={RATE}",
+                        "--text", text, "--write-media", str(mp3)], check=True, capture_output=True)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(mp3), "-ac", "1", "-ar", "24000", str(wav)], check=True)
+    else:
+        import soundfile as sf
+        samples, sr = kokoro.create(speakable(text), voice=VOICE["kokoro"], speed=1.0, lang="en-gb")
+        sf.write(wav, samples, sr)
+    # trim the engine's own leading and trailing silence, so GAP alone sets the pacing
+    trimmed = wav.with_name(wav.stem + "_t.wav")
+    sil = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(wav), "-af",
+                    f"{sil},areverse,{sil},areverse", str(trimmed)], check=True)
+    trimmed.replace(wav)
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(wav)],
+                         capture_output=True, text=True).stdout
+    return float(out)
+
+
+def build(t, engine, br, kokoro, out_dir):
     theme = B.theme_for(t)
     seq = lines_for(t)
     tmp = pathlib.Path(tempfile.mkdtemp())
+    said = script_for(t)
+    if said and len(said) != len(seq):
+        raise SystemExit(f"post {t['id']}: script has {len(said)} lines, the video has {len(seq)} steps")
     durs, wavs = [], []
     for i, (_, text) in enumerate(seq):
         wav = tmp / f"v{i}.wav"
-        durs.append(tts(kokoro, text, voice, wav) + GAP)
+        spoken = said[i] if said else text
+        durs.append(tts(engine, spoken, wav, kokoro) + GAP)
         wavs.append(wav)
     # frames: one per spoken step, plus the end card
     pngs = []
@@ -217,7 +269,7 @@ def build(t, voice, br, kokoro, out_dir):
     bed = pick_bed(t["template"], t["id"])
     bed_path = ROOT / "music" / bed["file"]
     start = random.Random(t["id"]).uniform(0, max(0, bed["seconds"] - total - 1))
-    out = out_dir / "short.mp4"
+    out = out_dir / ("short.preview.mp4" if engine == "edge" else "short.mp4")
     mix = (f"[1:a]atrim=start={start:.2f}:duration={total:.3f},asetpts=PTS-STARTPTS,volume=0.32,"
            f"afade=t=in:d=0.8,afade=t=out:st={total - 1.6:.3f}:d=1.6[bed];"
            f"[2:a]aresample=44100,aformat=channel_layouts=stereo,asplit=2[vo][sc];"
@@ -232,13 +284,19 @@ def build(t, voice, br, kokoro, out_dir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", type=int); ap.add_argument("--all", action="store_true")
-    ap.add_argument("--voice", default=DEFAULT_VOICE)
+    ap.add_argument("--engine", choices=["azure", "edge", "kokoro"], default="azure")
     a = ap.parse_args()
     if not (a.id or a.all): ap.error("choose --id N or --all")
-    from kokoro_onnx import Kokoro
+    if a.engine == "azure" and not os.environ.get("AZURE_SPEECH_KEY"):
+        ap.error("AZURE_SPEECH_KEY is not set. Use --engine edge for a preview")
+    if a.engine == "edge":
+        print("edge is for previews only: it writes short.preview.mp4, which must never be published")
     from playwright.sync_api import sync_playwright
-    kd = pathlib.Path(os.environ.get("KOKORO_DIR", "."))
-    kokoro = Kokoro(str(kd / "kokoro-v1.0.onnx"), str(kd / "voices-v1.0.bin"))
+    kokoro = None
+    if a.engine == "kokoro":
+        from kokoro_onnx import Kokoro
+        kd = pathlib.Path(os.environ.get("KOKORO_DIR", "."))
+        kokoro = Kokoro(str(kd / "kokoro-v1.0.onnx"), str(kd / "voices-v1.0.bin"))
     ids = {t["id"] for t in B.CURRICULUM.TOPICS} if a.all else {a.id}
     with sync_playwright() as p:
         exe = os.environ.get("CHROMIUM", "/opt/pw-browsers/chromium")
@@ -246,8 +304,8 @@ def main():
         for t in [t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
             d = ROOT / "publish" / f"post-{t['id']:02d}"
             d.mkdir(parents=True, exist_ok=True)
-            out, total, bed = build(t, a.voice, br, kokoro, d)
-            print(f"post {t['id']:02d}: short.mp4 {total:.1f}s, bed {bed['file']}")
+            out, total, bed = build(t, a.engine, br, kokoro, d)
+            print(f"post {t['id']:02d}: {out.name} {total:.1f}s, bed {bed['file']}")
         br.close()
 
 
