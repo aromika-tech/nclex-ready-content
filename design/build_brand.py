@@ -12,7 +12,8 @@ it stays visible, as the app does with its solid override on inverse surfaces.
 
 USAGE
   python3 build_brand.py           writes publish/brand/{welcome,marketing,avatar}.jpg,
-                                   banner-facebook.jpg, banner-youtube.jpg and highlight-*.jpg
+                                   banner-facebook.jpg, banner-youtube.jpg and highlight-*.jpg,
+                                   with -light versions of the avatar and both banners
 
 Banner safe zones: Facebook shows the full 1640x624 on desktop but only about the
 centre 1110px width on mobile. YouTube shows the full 2560x1440 on TV, but on mobile
@@ -23,7 +24,7 @@ from string import Template
 from PIL import Image
 
 from build_assets import FONT_CSS
-from themes import THEMES, NAVY, NAVY_DEEP, TEAL, TEAL_DEEP, CREAM, MINT
+from themes import THEMES, NAVY, NAVY_DEEP, TEAL, TEAL_DEEP, CREAM, MINT, INK, SAGE
 
 HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent / "publish" / "brand"
@@ -108,49 +109,60 @@ MARKETING = feed(
 # The editorial body sits a size up, since this card carries no lead line.
 MARKETING = MARKETING.replace(".body{font-size:29px", ".body{font-size:34px")
 
-AVATAR = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
+AVATAR_T = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
 $FONT_CSS
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1080px;overflow:hidden}
-body{background:radial-gradient(circle at 50% 42%,#163a72 0%,$NAVY 46%,$NAVY_DEEP 100%);
+body{background:$BG;
   display:flex;align-items:center;justify-content:center}
 .stack{display:flex;flex-direction:column;align-items:center;text-align:center}
-.word{font-family:'Fraunces',serif;font-weight:600;color:$CREAM;font-size:118px;
+.word{font-family:'Fraunces',serif;font-weight:600;color:$FG;font-size:118px;
   line-height:.94;letter-spacing:.02em}
-.rule{width:150px;height:5px;border-radius:3px;background:$MINT;margin:34px 0 26px}
-.au{font-family:'Inter',sans-serif;font-weight:700;color:$MINT;font-size:30px;
+.rule{width:150px;height:5px;border-radius:3px;background:$ACC;margin:34px 0 26px}
+.au{font-family:'Inter',sans-serif;font-weight:700;color:$ACC;font-size:30px;
   letter-spacing:.42em;margin-right:-.42em}
 svg{margin-bottom:34px}
 </style></head><body><div class="stack">$MARK
   <div class="word">NCLEX</div><div class="word">READY</div>
   <div class="rule"></div><div class="au">AUSTRALIA</div>
-</div></body></html>""").substitute(FONT_CSS=FONT_CSS, NAVY=NAVY, NAVY_DEEP=NAVY_DEEP,
-                                     CREAM=CREAM, MINT=MINT, MARK=mark(170, MINT, TEAL, "ma"))
+</div></body></html>""")
+
+
+def avatar(look):
+    if look == "light":
+        return AVATAR_T.substitute(FONT_CSS=FONT_CSS, BG=CREAM, FG=NAVY, ACC=TEAL_DEEP,
+                                   MARK=mark(170, TEAL_DEEP, NAVY, "ma"))
+    return AVATAR_T.substitute(
+        FONT_CSS=FONT_CSS, FG=CREAM, ACC=MINT, MARK=mark(170, MINT, TEAL, "ma"),
+        BG=f"radial-gradient(circle at 50% 42%,#163a72 0%,{NAVY} 46%,{NAVY_DEEP} 100%)")
+
+
+AVATAR, AVATAR_LIGHT = avatar("dark"), avatar("light")
 
 
 BANNER = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
 $FONT_CSS
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:${W}px;height:${H}px;overflow:hidden}
-body{background:$NAVY_DEEP;font-family:'Inter',sans-serif;position:relative}
+body{background:$BG;font-family:'Inter',sans-serif;position:relative}
 .glow{position:absolute;border-radius:50%;filter:blur(${BLUR}px)}
 .hair{position:absolute;inset:0;background-image:
-  linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px);background-size:100% ${HAIR}px}
+  linear-gradient($HAIRC 1px,transparent 1px);background-size:100% ${HAIR}px}
 .safe{position:absolute;left:50%;top:50%;width:${SW}px;height:${SH}px;
   transform:translate(-50%,-50%);display:flex;align-items:center;gap:${GAP}px}
 .brand{display:flex;flex-direction:column;align-items:flex-start;gap:${BGAP}px;flex:0 0 auto}
-.bname{font-family:'Fraunces',serif;font-weight:500;color:$CREAM;font-size:${BN}px;
+.bname{font-family:'Fraunces',serif;font-weight:500;color:$FG;font-size:${BN}px;
   letter-spacing:-.02em;line-height:1}
-.div{width:2px;align-self:stretch;background:rgba(253,248,243,.16);margin:${DIVM}px 0}
+.div{width:2px;align-self:stretch;background:$DIVC;margin:${DIVM}px 0}
 .copy{display:flex;flex-direction:column;gap:${CGAP}px}
-h1{font-family:'Fraunces',serif;font-weight:600;color:$CREAM;font-size:${H1}px;
+h1{font-family:'Fraunces',serif;font-weight:600;color:$FG;font-size:${H1}px;
   line-height:1.06;letter-spacing:-.025em}
-h1 em{font-style:italic;font-weight:500;color:$MINT}
-.sub{font-size:${SUB}px;color:rgba(253,248,243,.78);line-height:1.4}
-.site{font-size:${SITEF}px;font-weight:700;color:$MINT;letter-spacing:.02em}
+h1 em{font-style:italic;font-weight:500;color:$ACC}
+.sub{font-size:${SUB}px;color:$SUBC;line-height:1.4}
+.site{font-size:${SITEF}px;font-weight:700;color:$ACC;letter-spacing:.02em}
 </style></head><body>
-<div class="glow" style="background:$MINT;opacity:.34;width:${G1}px;height:${G1}px;top:-${G1O}px;right:-${G1O}px"></div>
-<div class="glow" style="background:$TEAL;opacity:.32;width:${G2}px;height:${G2}px;bottom:-${G2O}px;left:-${G2O}px"></div>
+<div class="glow" style="background:$G1C;opacity:$G1A;width:${G1}px;height:${G1}px;top:-${G1O}px;right:-${G1O}px"></div>
+<div class="glow" style="background:$G2C;opacity:$G2A;width:${G2}px;height:${G2}px;bottom:-${G2O}px;left:-${G2O}px"></div>
 <div class="hair"></div>
 <div class="safe">
   <div class="brand">$MARK<div class="bname">NCLEX Ready</div></div>
@@ -163,19 +175,32 @@ h1 em{font-style:italic;font-weight:500;color:$MINT}
 </div></body></html>""")
 
 
-def banner(W, H, SW, SH, k):
+# Dark is the midnight look, light is the editorial look of the marketing card.
+BANNER_LOOK = {
+    "dark": dict(BG=NAVY_DEEP, FG=CREAM, ACC=MINT, SUBC="rgba(253,248,243,.78)",
+                 DIVC="rgba(253,248,243,.16)", HAIRC="rgba(255,255,255,.028)",
+                 G1C=MINT, G1A=".34", G2C=TEAL, G2A=".32", M1=MINT, M2=TEAL),
+    "light": dict(BG=CREAM, FG=NAVY, ACC=TEAL_DEEP, SUBC=INK,
+                  DIVC="rgba(15,45,94,.12)", HAIRC="rgba(15,45,94,0)",
+                  G1C=TEAL_DEEP, G1A=".10", G2C=SAGE, G2A=".22", M1=TEAL_DEEP, M2=NAVY),
+}
+
+
+def banner(W, H, SW, SH, k, look="dark"):
     """k scales type to the safe box, so both banners share one composition."""
     v = dict(GAP=56, BGAP=20, BN=40, DIVM=8, CGAP=16, H1=58, SUB=25, SITEF=23, MARKS=92)
     v = {a: round(b * k) for a, b in v.items()}
+    L = dict(BANNER_LOOK[look])
     return BANNER.substitute(
-        FONT_CSS=FONT_CSS, W=W, H=H, SW=SW, SH=SH, NAVY_DEEP=NAVY_DEEP, CREAM=CREAM,
-        MINT=MINT, TEAL=TEAL, SITE=SITE, BLUR=round(H * .16), HAIR=round(46 * k),
+        FONT_CSS=FONT_CSS, W=W, H=H, SW=SW, SH=SH, SITE=SITE, BLUR=round(H * .16), HAIR=round(46 * k),
         G1=round(H * 1.2), G1O=round(H * .45), G2=round(H * .9), G2O=round(H * .35),
-        MARK=mark(v.pop("MARKS"), MINT, TEAL, "mb"), **v)
+        MARK=mark(v.pop("MARKS"), L.pop("M1"), L.pop("M2"), "mb"), **L, **v)
 
 
 BANNER_FB = banner(1640, 624, 1060, 440, 1.0)
 BANNER_YT = banner(2560, 1440, 1500, 400, 1.36)
+BANNER_FB_LIGHT = banner(1640, 624, 1060, 440, 1.0, "light")
+BANNER_YT_LIGHT = banner(2560, 1440, 1500, 400, 1.36, "light")
 
 HIGHLIGHT = Template("""<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><style>
 $FONT_CSS
@@ -210,7 +235,10 @@ def main():
     jobs = [("welcome", WELCOME, (1080, 1350)), ("marketing", MARKETING, (1080, 1350)),
             ("avatar", AVATAR, (1080, 1080)),
             ("banner-facebook", BANNER_FB, (1640, 624)),
-            ("banner-youtube", BANNER_YT, (2560, 1440))]
+            ("banner-youtube", BANNER_YT, (2560, 1440)),
+            ("avatar-light", AVATAR_LIGHT, (1080, 1080)),
+            ("banner-facebook-light", BANNER_FB_LIGHT, (1640, 624)),
+            ("banner-youtube-light", BANNER_YT_LIGHT, (2560, 1440))]
     jobs += [(n, src, (1080, 1920)) for n, src in HIGHLIGHTS.items()]
     with sync_playwright() as p, tempfile.TemporaryDirectory() as tmp:
         exe = os.environ.get("CHROMIUM", "/opt/pw-browsers/chromium")
