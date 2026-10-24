@@ -6,7 +6,10 @@ EXT = {".md", ".csv", ".py", ".json", ".txt", ".html"}
 SKIP = {"__pycache__", ".git", "social", "pkg"}
 TELLS = ["delve", "tapestry", "testament to", "in today's world", "ever-evolving",
          "seamless", "myriad", "plethora", "cutting-edge", "game-changer",
-         "it's not just", "it is not just", "let's dive", "moreover,", "furthermore,"]
+         "it's not just", "it is not just", "let's dive", "moreover,", "furthermore,",
+         # owner, 24 Oct: no AI wording on anything that is published
+         "ai voice", "narrated with an ai", "ai-generated", "ai generated", "generated with ai",
+         "ai assistance", "ai-assisted", "made with ai", "written by ai"]
 
 # These files define the rules, so they legitimately quote the banned patterns.
 RULE_FILES = {"verify.py", "brand-voice-core.md", "NEXT-CHAT-PROMPT.md", "SKILL.md",

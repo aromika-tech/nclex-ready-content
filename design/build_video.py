@@ -117,7 +117,7 @@ h1.dim{opacity:.4}
   <h1 class="$H1CLS">$TITLE</h1>
   <div class="lines">$LINES</div>
 </div>
-<div class="foot"><div class="bar"><i></i></div><div>AI voice</div><div class="site">$SITE</div></div>
+<div class="foot"><div class="bar"><i></i></div><div class="site">$SITE</div></div>
 $END
 </body></html>""")
 
