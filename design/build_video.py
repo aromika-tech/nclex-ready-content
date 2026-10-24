@@ -27,6 +27,12 @@ USAGE
   python3 build_video.py --id 1                     publish/post-01/short.mp4 (azure)
   python3 build_video.py --id 1 --engine edge       a preview, never published
 
+Every video opens on a cover (the question in large type, inside the centre 3:4 that
+grids crop to) held while the title is spoken, and writes it to cover.jpg next to
+short.mp4. Post with the video's thumbnailUrl set to cover.jpg and thumbnailOffset set
+to COVER_MS, so Instagram, Facebook and YouTube Shorts all show the cover. A spec can
+set its own {"cover": {"title": "...", "kicker": "..."}}.
+
 Build one video when the plan calls for it, not the whole cycle at once.
 Needs Playwright, Pillow and ffmpeg. edge needs pip install edge-tts. kokoro needs
 pip install kokoro-onnx soundfile and the model files in $KOKORO_DIR.
@@ -48,6 +54,7 @@ TEMPO = {"chatterbox": 0.93}   # slows a fast engine slightly, pitch unchanged
 END_HOLD = 2.6      # end card, seconds, when it has no spoken call to action
 CTA_SHOW = "Take the free readiness test"
 CTA_SAY = "Try the free readiness test. The link is in our bio."
+COVER_MS = 300      # the cover holds while the title is spoken; post with thumbnailOffset at this point
 VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma", "chatterbox": "default"}
 RATE = "-4%"
 
@@ -93,6 +100,16 @@ h1.dim{opacity:.4}
 .end .u{font-size:30px;font-weight:700;color:$SITEC}
 .end .cta{font-size:40px;font-weight:700;color:#ffffff;background:$ACCENT;padding:26px 46px;border-radius:999px;margin-top:20px}
 .end .s2{font-size:28px;color:$MUTED}
+.cover{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;
+  padding:0 92px;gap:44px}
+.cover .eyebrow{margin:0;font-size:30px;padding:16px 32px}
+.cover h1{font-size:${CH1}px;line-height:1.02;margin:0}
+.cover .k{font-size:50px;line-height:1.28;font-weight:600;color:$LEADC;max-width:880px}
+.cover .b{display:flex;align-items:center;gap:20px;margin-top:16px}
+.cover .b .mark{width:72px;height:72px;flex-basis:72px;border-radius:19px}
+.cover .b .mark span{width:27px;height:27px}
+.cover .b .bname{font-size:42px}
+.cover .rule{width:150px;height:12px;border-radius:6px;background:$ACCENT}
 </style></head><body>$DECO
 <div class="wrap">
   <div class="top"><div class="mark"><span></span></div><div class="bname">NCLEX Ready</div><div class="bhandle">$HANDLE</div></div>
@@ -128,7 +145,7 @@ def speakable(text):
     return text.replace("'", "").replace("’", "")
 
 
-def frame_html(t, theme, seq, step, end=False):
+def frame_html(t, theme, seq, step, end=False, cover=None):
     th = THEMES[theme]
     base_accent, tint, eyebrow = B.STYLE[t["template"]]
     eyebrow = t.get("eyebrow", eyebrow)
@@ -151,6 +168,12 @@ def frame_html(t, theme, seq, step, end=False):
                     f'<div class="cta">{esc(CTA_SHOW)}</div>'
                     f'<div class="u">{B.SITE}/diagnostic</div>'
                     f'<div class="s2">7 days free. No card needed.</div></div>')
+    if cover:
+        # the thumbnail: the question big, inside the centre 3:4 that grids and feeds crop to
+        kick = f'<div class="k">{esc(cover["kicker"])}</div>' if cover.get("kicker") else ""
+        end_html = (f'<style>.wrap,.foot{{display:none}}</style><div class="cover"><div class="rule"></div><div class="eyebrow">{esc(eyebrow)}</div>'
+                    f'<h1>{esc(cover["title"])}</h1>{kick}'
+                    f'<div class="b"><div class="mark"><span></span></div><div class="bname">NCLEX Ready</div></div></div>')
     extra = Template(th["extra_css"]).safe_substitute(ACCENT=accent, FIELDH="0", PADTOP="150px",
                                                       PADRAIL="106px", PADCARD="150px 106px 230px 142px")
     if theme == "block":
@@ -163,7 +186,8 @@ def frame_html(t, theme, seq, step, end=False):
         LEADC=th["lead"], EYEFG=efg, EYEBG=ebg, ACCENT=accent, TEAL=TEAL, NAVY=NAVY, CREAM=CREAM,
         EXTRA=extra, DECO=deco, HANDLE=B.HANDLE, SITE=B.SITE, EYEBROW=esc(eyebrow), TITLE=esc(t["title"]),
         H1CLS="" if step == 0 else "dim", H1=74 if len(t["title"]) < 48 else 64, LN=40, DOT=17,
-        LINES="".join(body), PCT=pct, END=end_html)
+        LINES="".join(body), PCT=pct, END=end_html,
+        CH1=(128 if len(cover["title"]) < 40 else 112) if cover else 96)
 
 
 def pick_bed(template, seed):
@@ -242,13 +266,19 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)] + [CTA_SAY]
     durs = [d + GAP for d in tts_batch(engine, list(zip(spoken, wavs)), kokoro)]
     cta_len = durs.pop()            # spoken over the end card
-    # frames: one per spoken step, plus the end card
+    # frames: the cover while the title is spoken, one per later step, then the end card
+    if spec:
+        cover = spec.get("cover") or {"title": seq[0][1]}
+    else:
+        cover = {"title": t["title"], "kicker": t["hook"] if len(t["hook"]) <= 110 else ""}
     pngs = []
     for step in range(len(seq)):
         p = tmp / f"f{step}.png"
         pg = br.new_page(viewport={"width": W, "height": H})
-        pg.set_content(frame_html(t, theme, seq, step)); pg.wait_for_timeout(200)
+        pg.set_content(frame_html(t, theme, seq, step, cover=cover if step == 0 else None)); pg.wait_for_timeout(200)
         pg.screenshot(path=str(p)); pg.close(); pngs.append(p)
+    from PIL import Image
+    Image.open(pngs[0]).convert("RGB").save(out_dir / "cover.jpg", "JPEG", quality=90, optimize=True)
     p = tmp / "fend.png"
     pg = br.new_page(viewport={"width": W, "height": H})
     pg.set_content(frame_html(t, theme, seq, len(seq) - 1, end=True)); pg.wait_for_timeout(200)
