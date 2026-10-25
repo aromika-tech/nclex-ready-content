@@ -1,0 +1,17 @@
+{
+ "out_dir": "product/practice-session",
+ "slides": [],
+ "story_slide": {
+  "theme": "editorial",
+  "eyebrow": "HOW IT WORKS",
+  "title": "Practise, then see <em>why</em>",
+  "h1": 100,
+  "points": [
+   "Pick a category or follow your plan",
+   "Answer at exam pace",
+   "See why each option is right or wrong",
+   "Missed questions come back weekly"
+  ],
+  "body": "Tap the link to start free"
+ }
+}

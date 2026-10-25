@@ -1,0 +1,17 @@
+{
+ "out_dir": "product/australian-practice",
+ "slides": [],
+ "story_slide": {
+  "theme": "chart",
+  "eyebrow": "TAUGHT TO AUSTRALIAN PRACTICE",
+  "title": "The words you <em>will chart here</em>",
+  "h1": 100,
+  "points": [
+   "Paracetamol, adrenaline and BSL",
+   "MET calls and obs charts",
+   "TGA and Australian Prescriber",
+   "NMBA and ACSQHC standards"
+  ],
+  "body": "Tap the link to try the free readiness test"
+ }
+}

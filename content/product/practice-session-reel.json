@@ -1,0 +1,39 @@
+{
+ "out_dir": "product/practice-session",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "HOW IT WORKS",
+ "seed": 13,
+ "cover": {
+  "title": "A practice session, start to finish",
+  "kicker": "Answer, then see why each option is right or wrong."
+ },
+ "lines": [
+  {
+   "show": "A practice session, start to finish",
+   "say": "Here's what a practice session looks like."
+  },
+  {
+   "kind": "hook",
+   "show": "Pick a category, or follow your study plan",
+   "say": "Pick a category, or let your study plan choose for you."
+  },
+  {
+   "show": "Answer at exam pace, with a timer if you want one",
+   "say": "Answer at exam pace, with a timer if you want one."
+  },
+  {
+   "show": "See why each option is right or wrong",
+   "say": "Then see why each option is right, or wrong."
+  },
+  {
+   "show": "Missed questions come back in your weekly mistakes review",
+   "say": "Anything you miss comes back in your weekly mistakes review."
+  },
+  {
+   "kind": "au",
+   "show": "Every explanation taught to Australian practice",
+   "say": "And every explanation is taught to Australian practice."
+  }
+ ]
+}

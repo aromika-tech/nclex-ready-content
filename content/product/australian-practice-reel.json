@@ -1,0 +1,39 @@
+{
+ "out_dir": "product/australian-practice",
+ "theme": "block",
+ "style": "auvs",
+ "eyebrow": "TAUGHT TO AUSTRALIAN PRACTICE",
+ "seed": 11,
+ "cover": {
+  "title": "The words you will chart here",
+  "kicker": "Every explanation taught to Australian practice."
+ },
+ "lines": [
+  {
+   "show": "The words you will chart here",
+   "say": "The words you'll actually chart, here in Australia."
+  },
+  {
+   "show": "Every explanation uses Australian practice",
+   "say": "Every explanation in N-Clex Ready uses Australian practice.",
+   "kind": "hook"
+  },
+  {
+   "show": "Paracetamol, adrenaline and BSL",
+   "say": "Paracetamol, adrenaline, and B S L."
+  },
+  {
+   "show": "MET calls and track-and-trigger obs charts",
+   "say": "MET calls, and track and trigger obs charts."
+  },
+  {
+   "show": "Medicines framed by the TGA and Australian Prescriber",
+   "say": "Medicines framed by the T G A and Australian Prescriber."
+  },
+  {
+   "show": "Standards from the NMBA and ACSQHC",
+   "say": "And the standards behind them, from the N M B A and the Commission on Safety and Quality.",
+   "kind": "au"
+  }
+ ]
+}
