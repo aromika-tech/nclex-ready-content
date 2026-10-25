@@ -257,6 +257,9 @@ def finish_wav(wav, tempo=1.0):
 
 def build(t, engine, br, kokoro, out_dir, spec=None):
     theme = spec.get("theme", "editorial") if spec else B.theme_for(t)
+    if theme == "block":    # its heading colours are set for the card's colour field and vanish on cream
+        print("block does not work for video, using notecard")
+        theme = "notecard"
     seq = [(l.get("kind", "pt"), l["show"]) for l in spec["lines"]] if spec else lines_for(t)
     tmp = pathlib.Path(tempfile.mkdtemp())
     said = [l.get("say", l["show"]) for l in spec["lines"]] if spec else script_for(t)
