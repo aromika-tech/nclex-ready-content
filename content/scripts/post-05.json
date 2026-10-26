@@ -1,0 +1,28 @@
+{
+ "post": 5,
+ "title": "Informed consent: whose job is it",
+ "cover": {
+  "title": "Consent: is it your job to get it?",
+  "kicker": "The nurse witnesses consent. The nurse does not obtain it."
+ },
+ "lines": [
+  {
+   "say": "Consent. Is it your job to get it?"
+  },
+  {
+   "say": "No. The nurse witnesses consent. The nurse doesn't obtain it."
+  },
+  {
+   "say": "Valid consent needs capacity, a free choice, enough information, and it has to match the procedure."
+  },
+  {
+   "say": "The person doing the procedure gets the consent. Your job is to check the patient understands, and the form is complete."
+  },
+  {
+   "say": "And consent can be withdrawn at any time. Even after the form is signed."
+  },
+  {
+   "say": "In Australia, each state and territory has its own consent and guardianship laws, so check the rules where you work."
+  }
+ ]
+}

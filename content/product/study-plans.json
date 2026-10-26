@@ -1,0 +1,42 @@
+{
+ "out_dir": "product/study-plans",
+ "slides": [
+  {
+   "eyebrow": "YOUR STUDY PLAN",
+   "title": "A plan that fits <em>your exam date</em>",
+   "lead": "Choose 8, 12, 16 or 20 weeks, paid once, or a monthly Self-study pass.",
+   "theme": "notecard"
+  },
+  {
+   "eyebrow": "EACH WEEK",
+   "title": "One list, about <em>5 to 6 hours</em>",
+   "points": [
+    "Short lessons, questions and flashcards",
+    "A review of your mistakes",
+    "A short weekly check",
+    "Do them in any order, on any days"
+   ],
+   "theme": "notecard"
+  },
+  {
+   "eyebrow": "START FREE",
+   "title": "Try it free <em>for 7 days</em>",
+   "lead": "Full access. No card needed.",
+   "body": "Start with the free readiness test at nclexready.com.au",
+   "theme": "notecard"
+  }
+ ],
+ "story_slide": {
+  "theme": "editorial",
+  "eyebrow": "YOUR STUDY PLAN",
+  "title": "A plan that fits <em>your exam date</em>",
+  "h1": 100,
+  "points": [
+   "8, 12, 16 or 20 weeks, paid once",
+   "Or a monthly Self-study pass",
+   "One list a week, about 5 to 6 hours",
+   "7 days free, no card needed"
+  ],
+  "body": "Tap the link to start with the free readiness test"
+ }
+}

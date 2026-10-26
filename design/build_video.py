@@ -31,7 +31,8 @@ Every video opens on a cover (the question in large type, inside the centre 3:4 
 grids crop to) held while the title is spoken, and writes it to cover.jpg next to
 short.mp4. Post with the video's thumbnailUrl set to cover.jpg and thumbnailOffset set
 to COVER_MS, so Instagram, Facebook and YouTube Shorts all show the cover. A spec can
-set its own {"cover": {"title": "...", "kicker": "..."}}.
+set its own {"cover": {"title": "...", "kicker": "..."}}, and so can a curriculum script
+(content/scripts/post-NN.json). --theme overrides a curriculum topic's look.
 
 Build one video when the plan calls for it, not the whole cycle at once.
 Needs Playwright, Pillow and ffmpeg. edge needs pip install edge-tts. kokoro needs
@@ -256,7 +257,7 @@ def finish_wav(wav, tempo=1.0):
 
 
 def build(t, engine, br, kokoro, out_dir, spec=None):
-    theme = spec.get("theme", "editorial") if spec else B.theme_for(t)
+    theme = spec.get("theme", "editorial") if spec else (t.get("look") or B.theme_for(t))
     if theme == "block":    # its heading colours are set for the card's colour field and vanish on cream
         print("block does not work for video, using notecard")
         theme = "notecard"
@@ -273,7 +274,9 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     if spec:
         cover = spec.get("cover") or {"title": seq[0][1]}
     else:
-        cover = {"title": t["title"], "kicker": t["hook"] if len(t["hook"]) <= 110 else ""}
+        sp = ROOT / "content" / "scripts" / f"post-{t['id']:02d}.json"
+        own = json.loads(sp.read_text()).get("cover") if sp.exists() else None
+        cover = own or {"title": t["title"], "kicker": t["hook"] if len(t["hook"]) <= 110 else ""}
     pngs = []
     for step in range(len(seq)):
         p = tmp / f"f{step}.png"
@@ -341,6 +344,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", type=int); ap.add_argument("--all", action="store_true")
     ap.add_argument("--spec", help="a JSON video spec for posts outside the curriculum (welcome, product)")
+    ap.add_argument("--theme", help="override the topic's look for a curriculum video (vary looks day to day)")
     ap.add_argument("--engine", choices=["azure", "edge", "chatterbox", "kokoro"], default="azure")
     a = ap.parse_args()
     if not (a.id or a.all or a.spec): ap.error("choose --id N, --spec FILE or --all")
@@ -369,7 +373,7 @@ def main():
             out, total, bed = build(t, a.engine, br, kokoro, d, spec)
             print(f"{spec['out_dir']}: {out.name} {total:.1f}s, bed {bed['file']}")
             br.close(); return
-        for t in [t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
+        for t in [dict(t, look=a.theme) if a.theme else t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
             d = ROOT / "publish" / f"post-{t['id']:02d}"
             d.mkdir(parents=True, exist_ok=True)
             out, total, bed = build(t, a.engine, br, kokoro, d)
