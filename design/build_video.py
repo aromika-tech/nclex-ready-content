@@ -55,6 +55,7 @@ TEMPO = {"chatterbox": 0.93}   # slows a fast engine slightly, pitch unchanged
 END_HOLD = 2.6      # end card, seconds, when it has no spoken call to action
 CTA_SHOW = "Take the free readiness test"
 CTA_SAY = "Try the free readiness test. The link is in our bio."
+MOTION = 0.045      # how far each card zooms in while it is on screen
 COVER_MS = 300      # the cover holds while the title is spoken; post with thumbnailOffset at this point
 VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma", "chatterbox": "default"}
 RATE = "-4%"
@@ -308,16 +309,17 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     subprocess.run(cmd, check=True)
     total = sum(durs)
 
-    # picture: still frames with short crossfades
-    XF = 0.25
+    # picture: each card pushes in slowly, then a clean cut to the next (crossfading two zoomed
+    # cards ghosts the text)
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
-    for p_, d in zip(pngs, durs):
-        cmd += ["-loop", "1", "-t", f"{d + XF:.3f}", "-framerate", str(FPS), "-i", str(p_)]
-    vf, last, off = [], "[0:v]", 0.0
-    for i in range(1, len(pngs)):
-        off += durs[i - 1]
-        vf.append(f"{last}[{i}:v]xfade=transition=fade:duration={XF}:offset={off - XF / 2:.3f}[x{i}]")
-        last = f"[x{i}]"
+    vf = []
+    for i, (p_, d) in enumerate(zip(pngs, durs)):
+        cmd += ["-i", str(p_)]
+        n = max(1, int(round(d * FPS)))
+        vf.append(f"[{i}:v]scale={W * 2}:-1,zoompan=z='1+{MOTION}*on/{n}':x='iw/2-(iw/zoom/2)':"
+                  f"y='ih/2-(ih/zoom/2)':d={n}:s={W}x{H}:fps={FPS},setsar=1[m{i}]")
+    vf.append("".join(f"[m{i}]" for i in range(len(pngs))) + f"concat=n={len(pngs)}:v=1:a=0[cat]")
+    last = "[cat]"
     vf.append(f"{last}format=yuv420p,trim=duration={total:.3f}[pic]")
     pic = tmp / "pic.mp4"
     cmd += ["-filter_complex", ";".join(vf), "-map", "[pic]", "-r", str(FPS), "-c:v", "libx264",
