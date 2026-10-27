@@ -1,7 +1,7 @@
 {
- "posted": 5,
- "last": "2026-10-28",
+ "posted": 7,
+ "last": "2026-10-30",
  "paused": false,
  "note": "Cycle position for the morning autopilot. posted = how many of the 70 cycle posts have been queued. The run reads this, adds one after queuing, and commits it. Moved here from Drive on 23 Oct 2026 because the Drive connector cannot write file contents.",
- "queued_through": "2026-10-28"
+ "queued_through": "2026-10-30"
 }
