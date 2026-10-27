@@ -1,0 +1,25 @@
+{
+ "out_dir": "product/founder",
+ "slides": [
+  {
+   "theme": "editorial",
+   "eyebrow": "WHO BUILT THIS",
+   "title": "Built by an <em>Australian registered nurse</em>",
+   "lead": "Dhruval Patel is an Australian-trained registered nurse with five years of clinical experience.",
+   "body": "He has helped overseas-qualified nurse friends through the AHPRA pathway, and built NCLEX Ready around what they needed: exam practice that matches the way nursing is practised here."
+  }
+ ],
+ "story_slide": {
+  "theme": "notecard",
+  "eyebrow": "WHO BUILT THIS",
+  "title": "Built by an <em>Australian registered nurse</em>",
+  "h1": 96,
+  "points": [
+   "Australian-trained RN",
+   "Five years of clinical experience",
+   "Built around what overseas-qualified friends needed",
+   "Taught to the way nursing is practised here"
+  ],
+  "body": "Tap the link to try the free readiness test"
+ }
+}

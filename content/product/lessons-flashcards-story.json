@@ -1,0 +1,17 @@
+{
+ "out_dir": "product/lessons-flashcards",
+ "slides": [],
+ "story_slide": {
+  "theme": "editorial",
+  "eyebrow": "LEARN, THEN PRACTISE",
+  "title": "Learn it, <em>then practise it</em>",
+  "h1": 100,
+  "points": [
+   "400+ short lessons, about 25 to 30 minutes each",
+   "4,000+ flashcards",
+   "Then questions on the same topic",
+   "7 days free, no card needed"
+  ],
+  "body": "Tap the link to start"
+ }
+}

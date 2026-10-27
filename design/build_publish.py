@@ -74,7 +74,7 @@ def build(ids):
         br = p.chromium.launch(executable_path=exe if os.path.exists(exe) else None)
         tmp = pathlib.Path(tmp)
         for t in [t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
-            th = B.theme_for(t)
+            th = THEME or B.theme_for(t)
             d = PUB / f"post-{t['id']:02d}"
             d.mkdir(parents=True, exist_ok=True)
             pages, slides = [], []
@@ -104,10 +104,16 @@ def build(ids):
                                         indent=1, ensure_ascii=False) + "\n")
 
 
+THEME = None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--all", action="store_true"); ap.add_argument("--id", type=int)
+    ap.add_argument("--theme", help="override the topic's look (light looks only for new posts)")
     a = ap.parse_args()
+    global THEME
+    THEME = a.theme
     if not (a.all or a.id): ap.error("choose --all or --id N")
     PUB.mkdir(exist_ok=True)
     build({t["id"] for t in B.CURRICULUM.TOPICS} if a.all else {a.id})

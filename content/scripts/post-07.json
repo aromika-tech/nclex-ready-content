@@ -1,0 +1,28 @@
+{
+ "post": 7,
+ "title": "Advocacy: representing their wishes, not your opinion",
+ "cover": {
+  "title": "Patient refuses care. Your move?",
+  "kicker": "Advocacy means their choice, not yours."
+ },
+ "lines": [
+  {
+   "say": "Patient refuses care. Your move?"
+  },
+  {
+   "say": "They are refusing treatment you know would help. Pause. What do you do?"
+  },
+  {
+   "say": "You support their choice. Advocacy means their wishes, not your opinion."
+  },
+  {
+   "say": "A competent adult can refuse. Check they understand, and document it."
+  },
+  {
+   "say": "Worried about safety? Escalate it up the chain. Never work around it."
+  },
+  {
+   "say": "In Australia, the N M B A Code of Conduct makes culturally safe care a clear duty."
+  }
+ ]
+}

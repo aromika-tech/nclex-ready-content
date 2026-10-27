@@ -1,0 +1,39 @@
+{
+ "out_dir": "product/lessons-flashcards",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "LEARN, THEN PRACTISE",
+ "seed": 17,
+ "cover": {
+  "title": "Learn it first. Then practise it.",
+  "kicker": "400+ short lessons and 4,000+ flashcards."
+ },
+ "lines": [
+  {
+   "show": "Learn it, then practise it",
+   "say": "Learn it first. Then practise it."
+  },
+  {
+   "show": "400+ short lessons, built for the NCLEX-RN",
+   "say": "There are more than four hundred short lessons, built around the N-Clex R-N.",
+   "kind": "hook"
+  },
+  {
+   "show": "Each one about 25 to 30 minutes",
+   "say": "Each one takes about twenty-five to thirty minutes."
+  },
+  {
+   "show": "4,000+ flashcards to keep it fresh",
+   "say": "And more than four thousand flashcards keep it fresh."
+  },
+  {
+   "show": "Then questions on the same topic",
+   "say": "Then you answer questions on the same topic."
+  },
+  {
+   "show": "All taught to Australian practice",
+   "say": "All of it taught to Australian practice.",
+   "kind": "au"
+  }
+ ]
+}
