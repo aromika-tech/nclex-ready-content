@@ -1,0 +1,17 @@
+{
+ "out_dir": "product/mock-exams",
+ "slides": [],
+ "story_slide": {
+  "theme": "chart",
+  "eyebrow": "MOCK EXAMS",
+  "title": "Would you pass <em>if it were today?</em>",
+  "h1": 96,
+  "points": [
+   "Timed, under exam conditions",
+   "Included in every study plan",
+   "Results by NCLEX category",
+   "Start with the free readiness test"
+  ],
+  "body": "Tap the link to find out where you stand"
+ }
+}

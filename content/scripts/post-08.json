@@ -1,0 +1,28 @@
+{
+ "post": 8,
+ "title": "Confidentiality: need-to-know, every time",
+ "cover": {
+  "title": "Can family see the notes?",
+  "kicker": "Next of kin is not a right to information."
+ },
+ "lines": [
+  {
+   "say": "Can family see the notes?"
+  },
+  {
+   "say": "Not just because they are family. Pause. Who can you share with?"
+  },
+  {
+   "say": "Only the people involved in care, and only as much as they need."
+  },
+  {
+   "say": "Taking out the name is not enough. A detailed story can still identify someone."
+  },
+  {
+   "say": "And never discuss a patient on social media. Even with no name."
+  },
+  {
+   "say": "In Australia, the Privacy Act and state health records laws set the rules."
+  }
+ ]
+}

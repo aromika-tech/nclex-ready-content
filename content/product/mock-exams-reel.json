@@ -1,0 +1,39 @@
+{
+ "out_dir": "product/mock-exams",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "MOCK EXAMS",
+ "seed": 19,
+ "cover": {
+  "title": "Would you pass if it were today?",
+  "kicker": "Timed mock exams, results by NCLEX category."
+ },
+ "lines": [
+  {
+   "show": "Timed mock exams",
+   "say": "Timed mock exams."
+  },
+  {
+   "show": "Sit them under exam conditions",
+   "say": "Sit them under exam conditions, so the real day feels familiar.",
+   "kind": "hook"
+  },
+  {
+   "show": "Included in every study plan",
+   "say": "Mock exams are included in every study plan."
+  },
+  {
+   "show": "Results by NCLEX category",
+   "say": "Your results break down by N-Clex category."
+  },
+  {
+   "show": "So you know what to revise next",
+   "say": "So you know exactly what to revise next."
+  },
+  {
+   "show": "Start with the free readiness test",
+   "say": "Start with the free readiness test. No card needed.",
+   "kind": "au"
+  }
+ ]
+}

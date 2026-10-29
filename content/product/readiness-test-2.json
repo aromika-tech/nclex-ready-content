@@ -1,0 +1,28 @@
+{
+ "out_dir": "product/readiness-test-2",
+ "slides": [
+  {
+   "theme": "editorial",
+   "eyebrow": "FREE READINESS TEST",
+   "title": "Your first step is <em>free</em>",
+   "points": [
+    "About 30 questions, written for Australian practice",
+    "A report of which areas to work on first",
+    "Then 7 days of full access, no card needed"
+   ],
+   "body": "Start at nclexready.com.au/diagnostic"
+  }
+ ],
+ "story_slide": {
+  "theme": "notecard",
+  "eyebrow": "FREE READINESS TEST",
+  "title": "Your first step is <em>free</em>",
+  "h1": 104,
+  "points": [
+   "About 30 questions, written for Australian practice",
+   "A report of what to work on first",
+   "Then 7 days of full access, no card needed"
+  ],
+  "body": "Tap the link to start"
+ }
+}
