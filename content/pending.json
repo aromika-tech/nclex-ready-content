@@ -1,1 +1,93 @@
-{"note":"Posts that did not fit under Buffer's 10-per-channel free cap. The next run queues these first with customScheduled at dueAt, then removes them.","posts":[]}
+{
+ "note": "Posts that did not fit under Buffer's 10-per-channel free cap. The next run queues these first with customScheduled at dueAt, then removes them.",
+ "posts": [
+  {
+   "channel": "instagram",
+   "channelId": "6adb9242778b240e2f9fea62",
+   "dueAt": "2026-11-01T18:31:00+05:30",
+   "text": "Your first step is free.\n\nTake the readiness test: about 30 questions written for Australian practice, and a report of which areas to work on first. Then try everything for 7 days, no card needed.\n\nWhich topic worries you most right now: A) pharmacology or B) prioritisation? Reply A or B.\n\nLink in bio.\n\n#NCLEXRN #NCLEX #AHPRA #OBA #IQN #NursesInAustralia",
+   "assets": [
+    {
+     "image": {
+      "url": "https://raw.githubusercontent.com/aromika-tech/nclex-ready-content/0969d1bed53e3d50ccbba6c43ef42a06667363e0/publish/product/readiness-test-2/slide1.jpg",
+      "metadata": {
+       "altText": "Your first step is free: about 30 questions written for Australian practice, a report of which areas to work on first, then 7 days of full access, no card needed."
+      }
+     }
+    }
+   ],
+   "metadata": {
+    "instagram": {
+     "type": "post",
+     "shouldShareToFeed": true
+    }
+   }
+  },
+  {
+   "channel": "facebook",
+   "channelId": "6adb927c778b240e2f9febfe",
+   "dueAt": "2026-11-01T18:38:00+05:30",
+   "text": "Your first step is free.\n\nTake the readiness test: about 30 questions written for Australian practice, and a report of which areas to work on first. Then try everything for 7 days, no card needed.\n\nWhich topic worries you most right now: A) pharmacology or B) prioritisation? Reply A or B.\n\nStart here: nclexready.com.au/diagnostic\n\n#NCLEXRN #NCLEX #AHPRA #OBA #IQN #NursesInAustralia",
+   "assets": [
+    {
+     "image": {
+      "url": "https://raw.githubusercontent.com/aromika-tech/nclex-ready-content/0969d1bed53e3d50ccbba6c43ef42a06667363e0/publish/product/readiness-test-2/slide1.jpg",
+      "metadata": {
+       "altText": "Your first step is free. Free readiness test, then 7 days of full access."
+      }
+     }
+    }
+   ],
+   "metadata": {
+    "facebook": {
+     "type": "post"
+    }
+   }
+  },
+  {
+   "channel": "instagram",
+   "channelId": "6adb9242778b240e2f9fea62",
+   "dueAt": "2026-11-01T19:58:00+05:30",
+   "assets": [
+    {
+     "image": {
+      "url": "https://raw.githubusercontent.com/aromika-tech/nclex-ready-content/0969d1bed53e3d50ccbba6c43ef42a06667363e0/publish/product/readiness-test-2/story.jpg",
+      "metadata": {
+       "altText": "Your first step is free: about 30 questions, a report of what to work on first, then 7 days of full access. Tap the link to start."
+      }
+     }
+    }
+   ],
+   "metadata": {
+    "instagram": {
+     "type": "story",
+     "shouldShareToFeed": false,
+     "link": "https://www.nclexready.com.au/diagnostic?utm_source=instagram&utm_medium=story&utm_campaign=readiness-test-2",
+     "stickerFields": {
+      "text": "Start free"
+     }
+    }
+   }
+  },
+  {
+   "channel": "facebook",
+   "channelId": "6adb927c778b240e2f9febfe",
+   "dueAt": "2026-11-01T20:16:00+05:30",
+   "assets": [
+    {
+     "image": {
+      "url": "https://raw.githubusercontent.com/aromika-tech/nclex-ready-content/0969d1bed53e3d50ccbba6c43ef42a06667363e0/publish/product/readiness-test-2/story.jpg",
+      "metadata": {
+       "altText": "Your first step is free."
+      }
+     }
+    }
+   ],
+   "metadata": {
+    "facebook": {
+     "type": "story"
+    }
+   }
+  }
+ ]
+}
