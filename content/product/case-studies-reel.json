@@ -31,9 +31,17 @@
    "say": "And finally, check whether it worked."
   },
   {
-   "show": "100+ case studies, taught to Australian practice",
-   "say": "There are more than a hundred case studies, all taught to Australian practice.",
-   "kind": "au"
+   "show": "100+ case studies, every answer explained",
+   "say": "There are more than a hundred case studies, and every answer is explained.",
+   "kind": "pt"
   }
- ]
+ ],
+ "motion": "drift",
+ "cta": {
+  "show": "Try it free for 7 days",
+  "say": "Try a case study this week. Seven days free, no card needed. The link is in our bio.",
+  "url": "/signup",
+  "note": "Full access. No card needed.",
+  "banner": "Case studies included. Link in bio."
+ }
 }
