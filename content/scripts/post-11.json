@@ -1,0 +1,28 @@
+{
+ "post": 11,
+ "title": "Ethical conflict and conscientious objection",
+ "cover": {
+  "title": "You object. Can you walk away?",
+  "kicker": "Conscientious objection does not mean abandoning the patient."
+ },
+ "lines": [
+  {
+   "say": "You object. Can you walk away?"
+  },
+  {
+   "say": "Pause. You can object, but you cannot just leave."
+  },
+  {
+   "say": "A competent adult's choice generally wins, even when the team disagrees."
+  },
+  {
+   "say": "If you conscientiously object, hand over care first. Never abandon the patient."
+  },
+  {
+   "say": "Resolve conflict through documented escalation, never on your own."
+  },
+  {
+   "say": "In Australia, the N M B A Code of Conduct sets these duties in every state and territory."
+  }
+ ]
+}

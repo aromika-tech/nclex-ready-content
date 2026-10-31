@@ -1,0 +1,28 @@
+{
+ "post": 10,
+ "title": "Discharge planning starts on admission",
+ "cover": {
+  "title": "When does discharge planning start?",
+  "kicker": "If it starts on discharge day, it has already failed."
+ },
+ "lines": [
+  {
+   "say": "When does discharge planning start?"
+  },
+  {
+   "say": "Pause. Is it discharge day, or admission? It's admission."
+  },
+  {
+   "say": "Plan from day one, not the morning they leave."
+  },
+  {
+   "say": "Use teach-back. Ask them to explain it, not, do you understand?"
+  },
+  {
+   "say": "And check equipment and supports are really in place before they go."
+  },
+  {
+   "say": "In Australia, aged care supports come through My Aged Care, and disability supports through the N D I S."
+  }
+ ]
+}

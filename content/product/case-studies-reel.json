@@ -1,0 +1,39 @@
+{
+ "out_dir": "product/case-studies",
+ "theme": "editorial",
+ "style": "compare",
+ "eyebrow": "CASE STUDIES",
+ "seed": 23,
+ "cover": {
+  "title": "One patient. Five screens. Ready?",
+  "kicker": "Unfolding case studies, the way the exam sets them."
+ },
+ "lines": [
+  {
+   "show": "Unfolding case studies",
+   "say": "Unfolding case studies."
+  },
+  {
+   "show": "One patient, several screens, like the exam",
+   "say": "One patient, across several screens, the way the exam does it.",
+   "kind": "hook"
+  },
+  {
+   "show": "Notice the cues",
+   "say": "First, you notice the cues."
+  },
+  {
+   "show": "Decide what matters and act",
+   "say": "Then decide what matters, and act."
+  },
+  {
+   "show": "See if it worked",
+   "say": "And finally, check whether it worked."
+  },
+  {
+   "show": "100+ case studies, taught to Australian practice",
+   "say": "There are more than a hundred case studies, all taught to Australian practice.",
+   "kind": "au"
+  }
+ ]
+}
