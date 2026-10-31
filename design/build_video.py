@@ -53,8 +53,16 @@ FPS = 30
 GAP = 0.6           # silence after each spoken line, seconds (owner, 24 Oct: a touch slower)
 TEMPO = {"chatterbox": 0.93}   # slows a fast engine slightly, pitch unchanged
 END_HOLD = 2.6      # end card, seconds, when it has no spoken call to action
-CTA_SHOW = "Take the free readiness test"
-CTA_SAY = "Try the free readiness test. The link is in our bio."
+# The default call to action. A spec or script can set its own "cta" so each post asks for the
+# step that fits it (owner, 31 Oct: vary the call to action by the nature of the post):
+#   {"show": pill text, "say": spoken line, "url": path shown under the pill,
+#    "note": small line under the URL, "banner": strip along the bottom of every card}
+CTA_DEFAULT = {"show": "Take the free readiness test", "say": "Try the free readiness test. The link is in our bio.",
+               "url": "/diagnostic", "note": "7 days free. No card needed.", "banner": "Free readiness test. Link in bio."}
+CTA_SHOW, CTA_SAY = CTA_DEFAULT["show"], CTA_DEFAULT["say"]
+TAGLINE = "NCLEX-RN prep, from your first test to exam day"
+# Motion styles, rotated so the Reels do not all move the same way (owner, 31 Oct).
+MOTIONS = ["push", "pull", "drift", "slide", "wipe"]
 MOTION = 0.045      # how far each card zooms in while it is on screen
 COVER_MS = 300      # the cover holds while the title is spoken; post with thumbnailOffset at this point
 VOICE = {"azure": "en-AU-NatashaNeural", "edge": "en-AU-NatashaNeural", "kokoro": "bf_emma", "chatterbox": "default"}
@@ -95,6 +103,8 @@ h1.dim{opacity:.4}
 .bar{flex:1;height:6px;border-radius:3px;background:$RULE;overflow:hidden}
 .bar i{display:block;height:100%;width:$PCT%;background:$ACCENT}
 .site{font-weight:700;color:$SITEC}
+.ban{position:absolute;left:84px;right:84px;bottom:196px;z-index:3;text-align:center;font-size:27px;font-weight:700;
+  color:#ffffff;background:$ACCENT;border-radius:999px;padding:16px 26px}
 .end{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:34px;background:$PAGE;text-align:center}
 .end .w{font-family:'Fraunces',serif;font-weight:600;color:$HEAD;font-size:92px;line-height:1}
@@ -119,7 +129,7 @@ h1.dim{opacity:.4}
   <h1 class="$H1CLS">$TITLE</h1>
   <div class="lines">$LINES</div>
 </div>
-<div class="foot"><div class="bar"><i></i></div><div class="site">$SITE</div></div>
+$BANNER<div class="foot"><div class="bar"><i></i></div><div class="site">$SITE</div></div>
 $END
 </body></html>""")
 
@@ -147,7 +157,8 @@ def speakable(text):
     return text.replace("'", "").replace("’", "")
 
 
-def frame_html(t, theme, seq, step, end=False, cover=None):
+def frame_html(t, theme, seq, step, end=False, cover=None, cta=None):
+    cta = cta or CTA_DEFAULT
     th = THEMES[theme]
     base_accent, tint, eyebrow = B.STYLE[t["template"]]
     eyebrow = t.get("eyebrow", eyebrow)
@@ -166,10 +177,10 @@ def frame_html(t, theme, seq, step, end=False, cover=None):
     end_html = ""
     if end:
         end_html = (f'<div class="end"><div class="w">NCLEX Ready</div>'
-                    f'<div class="s">NCLEX-RN prep, taught to Australian practice</div>'
-                    f'<div class="cta">{esc(CTA_SHOW)}</div>'
-                    f'<div class="u">{B.SITE}/diagnostic</div>'
-                    f'<div class="s2">7 days free. No card needed.</div></div>')
+                    f'<div class="s">{TAGLINE}</div>'
+                    f'<div class="cta">{esc(cta["show"])}</div>'
+                    f'<div class="u">{B.SITE}{cta.get("url", "")}</div>'
+                    f'<div class="s2">{esc(cta.get("note", ""))}</div></div>')
     if cover:
         # the thumbnail: the question big, inside the centre 3:4 that grids and feeds crop to
         kick = f'<div class="k">{esc(cover["kicker"])}</div>' if cover.get("kicker") else ""
@@ -189,6 +200,7 @@ def frame_html(t, theme, seq, step, end=False, cover=None):
         EXTRA=extra, DECO=deco, HANDLE=B.HANDLE, SITE=B.SITE, EYEBROW=esc(eyebrow), TITLE=esc(t["title"]),
         H1CLS="" if step == 0 else "dim", H1=74 if len(t["title"]) < 48 else 64, LN=40, DOT=17,
         LINES="".join(body), PCT=pct, END=end_html,
+        BANNER=f'<div class="ban">{esc(cta["banner"])}</div>' if cta.get("banner") and not end and not cover else "",
         CH1=(128 if len(cover["title"]) < 40 else 112) if cover else 96)
 
 
@@ -268,7 +280,11 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     if said and len(said) != len(seq):
         raise SystemExit(f"post {t['id']}: script has {len(said)} lines, the video has {len(seq)} steps")
     wavs = [tmp / f"v{i}.wav" for i in range(len(seq))] + [tmp / "vcta.wav"]
-    spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)] + [CTA_SAY]
+    sp_path = ROOT / "content" / "scripts" / f"post-{t['id']:02d}.json"
+    own = spec if spec else (json.loads(sp_path.read_text()) if sp_path.exists() else {})
+    cta = dict(CTA_DEFAULT, **own.get("cta", {}))
+    motion = own.get("motion") or t.get("motion") or MOTIONS[t["id"] % len(MOTIONS)]
+    spoken = [said[i] if said else text for i, (_, text) in enumerate(seq)] + [cta["say"]]
     durs = [d + GAP for d in tts_batch(engine, list(zip(spoken, wavs)), kokoro)]
     cta_len = durs.pop()            # spoken over the end card
     # frames: the cover while the title is spoken, one per later step, then the end card
@@ -282,13 +298,13 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     for step in range(len(seq)):
         p = tmp / f"f{step}.png"
         pg = br.new_page(viewport={"width": W, "height": H})
-        pg.set_content(frame_html(t, theme, seq, step, cover=cover if step == 0 else None)); pg.wait_for_timeout(200)
+        pg.set_content(frame_html(t, theme, seq, step, cover=cover if step == 0 else None, cta=cta)); pg.wait_for_timeout(200)
         pg.screenshot(path=str(p)); pg.close(); pngs.append(p)
     from PIL import Image
     Image.open(pngs[0]).convert("RGB").save(out_dir / "cover.jpg", "JPEG", quality=90, optimize=True)
     p = tmp / "fend.png"
     pg = br.new_page(viewport={"width": W, "height": H})
-    pg.set_content(frame_html(t, theme, seq, len(seq) - 1, end=True)); pg.wait_for_timeout(200)
+    pg.set_content(frame_html(t, theme, seq, len(seq) - 1, end=True, cta=cta)); pg.wait_for_timeout(200)
     pg.screenshot(path=str(p)); pg.close(); pngs.append(p); durs.append(max(END_HOLD, cta_len + 0.9))
 
     # narration track: each line followed by its gap, the call to action under the end card
@@ -309,17 +325,36 @@ def build(t, engine, br, kokoro, out_dir, spec=None):
     subprocess.run(cmd, check=True)
     total = sum(durs)
 
-    # picture: each card pushes in slowly, then a clean cut to the next (crossfading two zoomed
-    # cards ghosts the text)
+    # picture: five motion styles. push, pull and drift move each card then cut cleanly (a crossfade
+    # between two moving cards ghosts the text); slide and wipe hold each card still and move between
+    # them with a hard-edged transition, which never blends two cards.
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     vf = []
+    XF = 0.35
     for i, (p_, d) in enumerate(zip(pngs, durs)):
         cmd += ["-i", str(p_)]
-        n = max(1, int(round(d * FPS)))
-        vf.append(f"[{i}:v]scale={W * 2}:-1,zoompan=z='1+{MOTION}*on/{n}':x='iw/2-(iw/zoom/2)':"
-                  f"y='ih/2-(ih/zoom/2)':d={n}:s={W}x{H}:fps={FPS},setsar=1[m{i}]")
-    vf.append("".join(f"[m{i}]" for i in range(len(pngs))) + f"concat=n={len(pngs)}:v=1:a=0[cat]")
-    last = "[cat]"
+        last_card = i == len(pngs) - 1
+        n = max(1, int(round((d + (0 if motion in ("push", "pull", "drift") or last_card else XF)) * FPS)))
+        if motion == "push":
+            z, x, y = f"1+{MOTION}*on/{n}", "iw/2-(iw/zoom/2)", "ih/2-(ih/zoom/2)"
+        elif motion == "pull":
+            z, x, y = f"1+{MOTION}-{MOTION}*on/{n}", "iw/2-(iw/zoom/2)", "ih/2-(ih/zoom/2)"
+        elif motion == "drift":    # a fixed slight zoom with a slow rise, alternating sideways
+            side = "+" if i % 2 else "-"
+            z, x, y = "1.05", f"iw/2-(iw/zoom/2){side}iw*0.012*on/{n}", f"ih/2-(ih/zoom/2)+ih*0.012-ih*0.024*on/{n}"
+        else:
+            z, x, y = "1", "0", "0"
+        vf.append(f"[{i}:v]scale={W * 2}:-1,zoompan=z='{z}':x='{x}':y='{y}':d={n}:s={W}x{H}:fps={FPS},setsar=1[m{i}]")
+    if motion in ("slide", "wipe"):
+        kind = "slideleft" if motion == "slide" else "wipeup"
+        last, off = "[m0]", 0.0
+        for i in range(1, len(pngs)):
+            off += durs[i - 1]
+            vf.append(f"{last}[m{i}]xfade=transition={kind}:duration={XF}:offset={off - XF / 2:.3f}[x{i}]")
+            last = f"[x{i}]"
+    else:
+        vf.append("".join(f"[m{i}]" for i in range(len(pngs))) + f"concat=n={len(pngs)}:v=1:a=0[cat]")
+        last = "[cat]"
     vf.append(f"{last}format=yuv420p,trim=duration={total:.3f}[pic]")
     pic = tmp / "pic.mp4"
     cmd += ["-filter_complex", ";".join(vf), "-map", "[pic]", "-r", str(FPS), "-c:v", "libx264",
@@ -347,6 +382,7 @@ def main():
     ap.add_argument("--id", type=int); ap.add_argument("--all", action="store_true")
     ap.add_argument("--spec", help="a JSON video spec for posts outside the curriculum (welcome, product)")
     ap.add_argument("--theme", help="override the topic's look for a curriculum video (vary looks day to day)")
+    ap.add_argument("--motion", choices=["push", "pull", "drift", "slide", "wipe"], help="override the motion style")
     ap.add_argument("--engine", choices=["azure", "edge", "chatterbox", "kokoro"], default="azure")
     a = ap.parse_args()
     if not (a.id or a.all or a.spec): ap.error("choose --id N, --spec FILE or --all")
@@ -368,14 +404,14 @@ def main():
         br = p.chromium.launch(executable_path=exe if os.path.exists(exe) else None)
         if a.spec:
             spec = json.loads(pathlib.Path(a.spec).read_text())
-            t = {"id": spec.get("seed", 1), "template": spec.get("style", "fact"), "title": spec["lines"][0]["show"],
+            t = {"id": spec.get("seed", 1), "template": spec.get("style", "fact"), "title": spec["lines"][0]["show"], "motion": a.motion,
                  "eyebrow": spec.get("eyebrow", "NCLEX READY")}
             d = ROOT / "publish" / spec["out_dir"]
             d.mkdir(parents=True, exist_ok=True)
             out, total, bed = build(t, a.engine, br, kokoro, d, spec)
             print(f"{spec['out_dir']}: {out.name} {total:.1f}s, bed {bed['file']}")
             br.close(); return
-        for t in [dict(t, look=a.theme) if a.theme else t for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
+        for t in [dict(t, look=a.theme or t.get("look"), motion=a.motion) for t in B.CURRICULUM.TOPICS if t["id"] in ids]:
             d = ROOT / "publish" / f"post-{t['id']:02d}"
             d.mkdir(parents=True, exist_ok=True)
             out, total, bed = build(t, a.engine, br, kokoro, d)

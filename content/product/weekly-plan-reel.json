@@ -1,0 +1,46 @@
+{
+ "out_dir": "product/weekly-plan",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "STEP 2: YOUR WEEKLY PLAN",
+ "seed": 32,
+ "motion": "wipe",
+ "cover": {
+  "title": "What if your week was planned?",
+  "kicker": "One list, about 5 to 6 hours."
+ },
+ "cta": {
+  "show": "See plans and prices",
+  "say": "Pick a plan that fits your exam date. See the plans at the link in our bio.",
+  "url": "/pricing",
+  "note": "Or start with 7 days free.",
+  "banner": "Plans of 8 to 20 weeks. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Your week, planned",
+   "say": "What if your whole week was planned for you?"
+  },
+  {
+   "kind": "hook",
+   "show": "One list a week, about 5 to 6 hours",
+   "say": "One list a week. About five to six hours."
+  },
+  {
+   "show": "Topics, practice tests, a case study, flashcards",
+   "say": "Topics, practice tests, a case study, and flashcards."
+  },
+  {
+   "show": "A mistakes review, then a 15-question check",
+   "say": "A review of your mistakes, then a fifteen-question weekly check."
+  },
+  {
+   "show": "The plan adapts after every check",
+   "say": "And the plan adapts after every check."
+  },
+  {
+   "show": "Plans of 8, 12, 16 or 20 weeks",
+   "say": "Choose eight, twelve, sixteen, or twenty weeks."
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "out_dir": "product/first-week",
+ "slides": [
+  {
+   "theme": "editorial",
+   "eyebrow": "YOUR FIRST WEEK",
+   "title": "Your first week, <em>step by step</em>",
+   "lead": "7 days of full access. No card needed.",
+   "body": "Swipe to see how it works"
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "STEP 1",
+   "title": "Take the free <em>readiness test</em>",
+   "points": [
+    "About 30 questions, 30 to 45 minutes",
+    "A report of your weakest areas",
+    "No account needed to start"
+   ]
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "STEP 2",
+   "title": "Get your <em>weekly list</em>",
+   "points": [
+    "Short topics with a worked example",
+    "Practice tests of 25 questions",
+    "A case study and flashcards"
+   ]
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "STEP 3",
+   "title": "Your first <em>weekly check</em>",
+   "points": [
+    "15 questions, about 20 minutes",
+    "Your plan adapts to the result",
+    "Mistakes come back for review"
+   ]
+  },
+  {
+   "theme": "editorial",
+   "eyebrow": "STEP 4",
+   "title": "Then choose <em>your plan</em>",
+   "lead": "8, 12, 16 or 20 weeks, or a monthly Self-study pass.",
+   "body": "Start free at nclexready.com.au/signup"
+  }
+ ]
+}

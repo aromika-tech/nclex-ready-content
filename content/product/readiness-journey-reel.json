@@ -1,0 +1,46 @@
+{
+ "out_dir": "product/readiness-journey",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "STEP 1: THE READINESS TEST",
+ "seed": 31,
+ "motion": "slide",
+ "cover": {
+  "title": "Where do you stand today?",
+  "kicker": "A free readiness test, about 30 questions."
+ },
+ "cta": {
+  "show": "Take the free readiness test",
+  "say": "Find out where you stand. Take the free test today. The link is in our bio.",
+  "url": "/diagnostic",
+  "note": "Free. No account needed.",
+  "banner": "Free readiness test. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Where do you stand today?",
+   "say": "Where do you stand today?"
+  },
+  {
+   "kind": "hook",
+   "show": "Find out in about 30 questions",
+   "say": "Find out in about thirty questions."
+  },
+  {
+   "show": "It takes 30 to 45 minutes",
+   "say": "It takes thirty to forty-five minutes."
+  },
+  {
+   "show": "Your report shows your weakest areas",
+   "say": "Your report shows the areas to work on first."
+  },
+  {
+   "show": "Your study plan starts from there",
+   "say": "And your study plan starts right there."
+  },
+  {
+   "show": "Free, with no card needed",
+   "say": "It's free, and no card is needed."
+  }
+ ]
+}

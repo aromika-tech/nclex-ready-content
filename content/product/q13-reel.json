@@ -1,0 +1,46 @@
+{
+ "out_dir": "post-13",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 13,
+ "motion": "drift",
+ "cover": {
+  "title": "Near miss, no harm. Report it?",
+  "kicker": "Staying silent is the common mistake."
+ },
+ "cta": {
+  "show": "Find your weak areas free",
+  "say": "Want to know which topics to fix first? Take the free readiness test. The link is in our bio.",
+  "url": "/diagnostic",
+  "note": "About 30 questions. No account needed.",
+  "banner": "Find your weak areas. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "A near miss. No one was hurt.",
+   "say": "A near miss. No one was hurt. Do you report it?"
+  },
+  {
+   "kind": "hook",
+   "show": "Pause. Report it, or let it go?",
+   "say": "Pause. Report it, or let it go?"
+  },
+  {
+   "show": "Report it. That is exactly why near misses are reported",
+   "say": "Report it. Near misses are reported precisely because no one was hurt this time."
+  },
+  {
+   "show": "The review looks for system causes, not blame",
+   "say": "The review looks for system causes, not someone to blame."
+  },
+  {
+   "show": "If harm happens: explain, apologise, say what will change",
+   "say": "And if harm does happen, explain honestly, apologise, and say what will change."
+  },
+  {
+   "show": "An apology is generally not an admission of liability",
+   "say": "An apology is generally not an admission of liability."
+  }
+ ]
+}

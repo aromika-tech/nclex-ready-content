@@ -1,0 +1,46 @@
+{
+ "out_dir": "product/wrong-answers",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "STEP 3: PRACTICE TESTS",
+ "seed": 33,
+ "motion": "push",
+ "cover": {
+  "title": "Got it wrong? Good.",
+  "kicker": "See why each option is right or wrong."
+ },
+ "cta": {
+  "show": "Start 7 days free",
+  "say": "Learn from every mistake. Start seven days free, no card needed. The link is in our bio.",
+  "url": "/signup",
+  "note": "Full access. No card needed.",
+  "banner": "7 days free. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Got it wrong? Good.",
+   "say": "Got it wrong? Good."
+  },
+  {
+   "kind": "hook",
+   "show": "See why each option is right or wrong",
+   "say": "Now you'll see why each option is right, or wrong."
+  },
+  {
+   "show": "Practice tests of 25 questions",
+   "say": "Practice tests are twenty-five questions."
+  },
+  {
+   "show": "See why your answer was not the best one",
+   "say": "See exactly why your answer wasn't the best one."
+  },
+  {
+   "show": "Missed questions come back in your weekly review",
+   "say": "Missed questions come back in your weekly mistakes review."
+  },
+  {
+   "show": "So the same mistake does not happen twice",
+   "say": "So you don't make the same mistake twice."
+  }
+ ]
+}

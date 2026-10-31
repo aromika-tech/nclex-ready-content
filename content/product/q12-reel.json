@@ -1,0 +1,46 @@
+{
+ "out_dir": "post-12",
+ "theme": "notecard",
+ "style": "auvs",
+ "eyebrow": "WHAT WOULD YOU DO?",
+ "seed": 12,
+ "motion": "pull",
+ "cover": {
+  "title": "Colleague drunk on shift. Report?",
+  "kicker": "It can be a legal duty."
+ },
+ "cta": {
+  "show": "Try free practice questions",
+  "say": "Want more questions like this? Try our free practice questions. The link is in our bio.",
+  "url": "/sample-questions",
+  "note": "Full explanations. No sign-up needed.",
+  "banner": "More free questions. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Your colleague smells of alcohol on shift",
+   "say": "Your colleague smells of alcohol on shift."
+  },
+  {
+   "kind": "hook",
+   "show": "Pause. Do you report it?",
+   "say": "Pause. Do you report it, or keep it quiet?"
+  },
+  {
+   "show": "Report it. It can be a legal duty to notify the regulator",
+   "say": "Report it. Practising while intoxicated can be a legal duty to notify."
+  },
+  {
+   "show": "It is about patient safety, not punishment",
+   "say": "It's about keeping patients safe, not punishing anyone."
+  },
+  {
+   "show": "Write down what you saw, factually",
+   "say": "Write down what you saw, factually."
+  },
+  {
+   "show": "Never treat it as an HR matter only",
+   "say": "And never treat it as just an HR matter."
+  }
+ ]
+}
