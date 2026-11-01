@@ -1,0 +1,46 @@
+{
+ "out_dir": "product/lessons",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "STEP 4: SHORT LESSONS",
+ "seed": 44,
+ "motion": "pull",
+ "cover": {
+  "title": "Read it once. Forget it by Friday?",
+  "kicker": "Learn it, see it worked, then test it."
+ },
+ "cta": {
+  "show": "Start your free week",
+  "say": "Try your first lessons free for seven days. No card needed. The link is in our bio.",
+  "url": "/signup",
+  "note": "7 days of full access. No card needed.",
+  "banner": "Your first lessons are free. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Read it once. Forget it by Friday?",
+   "say": "Read it once, forget it by Friday?"
+  },
+  {
+   "kind": "hook",
+   "show": "Each topic is a 25 to 30 minute lesson",
+   "say": "Each topic is a short lesson, about twenty-five to thirty minutes."
+  },
+  {
+   "show": "Read the key ideas, then a worked example",
+   "say": "Read the key ideas, then walk through a worked example."
+  },
+  {
+   "show": "Flashcards, questions, then a mini case",
+   "say": "Then flashcards, questions, and a mini case to put it together."
+  },
+  {
+   "show": "Your plan picks the topics that matter most",
+   "say": "Your plan picks the topics that matter most for you."
+  },
+  {
+   "show": "Highest exam weight first, then your weak areas",
+   "say": "The highest exam weight first, then your weakest areas."
+  }
+ ]
+}

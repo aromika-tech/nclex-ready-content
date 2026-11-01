@@ -1,0 +1,42 @@
+{
+ "out_dir": "post-14",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 14,
+ "motion": "slide",
+ "cover": {
+  "title": "Which hand hygiene moment gets missed?",
+  "kicker": "Five moments. One is skipped most."
+ },
+ "cta": {
+  "show": "Try free practice questions",
+  "say": "More free practice questions, no sign-up. Link in bio.",
+  "url": "/sample-questions",
+  "note": "8 free questions, every answer explained.",
+  "banner": "Free practice questions. Link in bio."
+ },
+ "lines": [
+  {
+   "show": "Five moments for hand hygiene.",
+   "say": "Which hand hygiene moment gets missed most?"
+  },
+  {
+   "kind": "hook",
+   "show": "Pause. Which one do nurses skip?",
+   "say": "Pause."
+  },
+  {
+   "show": "After touching the patient's surroundings",
+   "say": "After touching the patient's surroundings."
+  },
+  {
+   "show": "The bed rail, the table, the pump",
+   "say": "The bed rail, the table, the pump."
+  },
+  {
+   "show": "C. difficile? Soap and water, not alcohol rub",
+   "say": "With C. difficile, use soap and water, not alcohol rub."
+  }
+ ]
+}

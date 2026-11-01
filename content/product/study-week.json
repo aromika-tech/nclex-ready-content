@@ -1,0 +1,49 @@
+{
+ "out_dir": "product/study-week",
+ "slides": [
+  {
+   "theme": "notecard",
+   "eyebrow": "A STUDY WEEK",
+   "title": "What a study week <em>looks like</em>",
+   "lead": "One list a week. About 5 to 6 hours.",
+   "body": "Swipe to see what is on it"
+  },
+  {
+   "theme": "notecard",
+   "eyebrow": "LEARN",
+   "title": "Short <em>lessons</em>",
+   "points": [
+    "25 to 30 minutes each",
+    "A worked example in every topic",
+    "Flashcards, questions and a mini case"
+   ]
+  },
+  {
+   "theme": "notecard",
+   "eyebrow": "PRACTISE",
+   "title": "Tests and a <em>case study</em>",
+   "points": [
+    "Practice tests of 25 questions",
+    "Why each option is right or wrong",
+    "One unfolding case study"
+   ]
+  },
+  {
+   "theme": "notecard",
+   "eyebrow": "REVIEW",
+   "title": "Mistakes and <em>flashcards</em>",
+   "points": [
+    "Missed questions come back",
+    "Flashcards spaced for memory",
+    "Little and often, not cramming"
+   ]
+  },
+  {
+   "theme": "notecard",
+   "eyebrow": "CHECK",
+   "title": "Your <em>weekly check</em>",
+   "lead": "15 questions, about 20 minutes. Next week's list adapts to the result.",
+   "body": "Start with the free readiness test"
+  }
+ ]
+}
