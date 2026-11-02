@@ -1,0 +1,26 @@
+{
+ "out_dir": "post-15",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 15,
+ "motion": "drift",
+ "cover": {
+  "title": "Suspected TB. Surgical mask enough?",
+  "kicker": "A common precautions mistake."
+ },
+ "cta": {
+  "show": "Find your weak areas free",
+  "say": "Find your weak areas with the free readiness test. Link in bio.",
+  "url": "/diagnostic",
+  "note": "About 30 questions. No account needed.",
+  "banner": "Free readiness test. Link in bio."
+ },
+ "lines": [
+  {"show": "Suspected TB. Is a surgical mask enough?", "say": "Suspected TB. Is a surgical mask enough?"},
+  {"kind": "hook", "show": "Pause. Mask, or something more?", "say": "Pause."},
+  {"show": "No. Airborne: a fit-tested P2/N95 respirator", "say": "No. TB is airborne. Use a fit-tested P2 or N95 respirator."},
+  {"show": "And a negative pressure room", "say": "And a negative pressure room."},
+  {"show": "Measles and varicella are airborne too", "say": "Measles and varicella are airborne too."}
+ ]
+}

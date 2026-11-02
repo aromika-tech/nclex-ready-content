@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/flashcards",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "STEP 5: FLASHCARDS",
+ "seed": 55,
+ "motion": "wipe",
+ "cover": {
+  "title": "Studied it last month. Gone?",
+  "kicker": "Cards come back right before you forget."
+ },
+ "cta": {
+  "show": "Get 100 free flashcards",
+  "say": "Get one hundred flashcards free with an account. No card needed. Link in bio.",
+  "url": "/signup",
+  "note": "Free account. No card needed.",
+  "banner": "100 flashcards free. Link in bio."
+ },
+ "lines": [
+  {"show": "Studied it last month. Gone?", "say": "Studied it last month, and it's gone?"},
+  {"kind": "hook", "show": "Spaced review keeps it", "say": "Spaced review keeps it."},
+  {"show": "Cards from the topics you have done", "say": "You review cards from the topics you've done."},
+  {"show": "Each comes back just before you forget it", "say": "Each one comes back just before you'd forget it."},
+  {"show": "About 10 minutes a day. 4,000+ cards.", "say": "About ten minutes at a time, from over four thousand cards."}
+ ]
+}

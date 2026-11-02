@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/weekly-check",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "STEP 6: WEEKLY CHECK",
+ "seed": 66,
+ "motion": "push",
+ "cover": {
+  "title": "Is your plan keeping up with you?",
+  "kicker": "15 questions a week. The plan adapts."
+ },
+ "cta": {
+  "show": "Choose your plan length",
+  "say": "Pick eight, twelve, sixteen or twenty weeks. See plans and prices. Link in bio.",
+  "url": "/pricing",
+  "note": "Paid once. First 7 days free.",
+  "banner": "See plans and prices. Link in bio."
+ },
+ "lines": [
+  {"show": "Is your plan keeping up with you?", "say": "Is your study plan keeping up with you?"},
+  {"kind": "hook", "show": "Every week: a 15-question check", "say": "Every week, a fifteen-question check."},
+  {"show": "About 20 minutes", "say": "It takes about twenty minutes."},
+  {"show": "Next week's list adapts to the result", "say": "Next week's list adapts to the result."},
+  {"show": "Strong areas ease off. Weak areas get more.", "say": "Strong areas ease off. Weak areas get more time."}
+ ]
+}
