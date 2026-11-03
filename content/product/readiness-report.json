@@ -1,0 +1,10 @@
+{
+ "out_dir": "product/readiness-report",
+ "slides": [
+  {"theme": "chart", "eyebrow": "THE READINESS REPORT", "title": "Your readiness report, <em>explained</em>", "lead": "About 30 questions. Free, no account needed.", "body": "Swipe to see what you get"},
+  {"theme": "chart", "eyebrow": "EIGHT AREAS", "title": "One tile per <em>area</em>", "points": ["The eight NCLEX client need areas", "A band for each one", "See your gaps at a glance"]},
+  {"theme": "chart", "eyebrow": "YOUR STARTING POINT", "title": "Four <em>bands</em>", "points": ["Building, developing, on track, consolidating", "A direction for your plan", "Not a prediction of your result"]},
+  {"theme": "chart", "eyebrow": "WHAT HAPPENS NEXT", "title": "Your plan is <em>built from it</em>", "points": ["The areas that need it most come first", "Strong areas are kept ticking over", "Calendar links to block out study time"]},
+  {"theme": "chart", "eyebrow": "START HERE", "title": "Find your <em>starting point</em>", "lead": "About 30 questions, 30 to 45 minutes.", "body": "Take the free readiness test"}
+ ]
+}

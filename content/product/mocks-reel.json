@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/mocks",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "STEP 7: MOCK EXAMS",
+ "seed": 77,
+ "motion": "pull",
+ "cover": {
+  "title": "Want a dress rehearsal first?",
+  "kicker": "Adaptive mocks, like the real exam."
+ },
+ "cta": {
+  "show": "See which plan fits",
+  "say": "Mocks are built into every plan. See which plan fits you. Link in bio.",
+  "url": "/pricing",
+  "note": "Paid once. First 7 days free.",
+  "banner": "Mocks in every plan. Link in bio."
+ },
+ "lines": [
+  {"show": "Want a dress rehearsal first?", "say": "Want a dress rehearsal before exam day?"},
+  {"kind": "hook", "show": "Adaptive, 85 to 150 questions", "say": "Adaptive mocks, eighty-five to a hundred and fifty questions."},
+  {"show": "About 2.5 hours, no going back", "say": "About two and a half hours. No going back."},
+  {"show": "A readiness report for each area", "say": "Then a readiness report for each area."},
+  {"show": "Your plan rebalances after every mock", "say": "And your plan rebalances after every mock."}
+ ]
+}

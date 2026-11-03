@@ -1,0 +1,26 @@
+{
+ "out_dir": "post-16",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 16,
+ "motion": "slide",
+ "cover": {
+  "title": "Peripheral IV. Full sterile gown?",
+  "kicker": "Know your key parts and key sites."
+ },
+ "cta": {
+  "show": "Practise 8 free questions",
+  "say": "Practise eight free questions, every answer explained. Link in bio.",
+  "url": "/sample-questions",
+  "note": "No sign-up needed.",
+  "banner": "8 free questions. Link in bio."
+ },
+ "lines": [
+  {"show": "Peripheral IV. Full sterile gown?", "say": "Inserting a peripheral IV. Do you need a full sterile gown?"},
+  {"kind": "hook", "show": "Pause. Standard or surgical?", "say": "Pause."},
+  {"show": "No. Standard aseptic non-touch technique", "say": "No. Standard aseptic non-touch technique."},
+  {"show": "Never touch the key parts or the key site", "say": "Never touch the key parts, or the key site."},
+  {"show": "Central line? That is surgical ANTT", "say": "A central line is different. That one is surgical."}
+ ]
+}
