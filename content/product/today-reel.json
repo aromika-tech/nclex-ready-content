@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/today",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "STEP 9: YOUR TODAY SCREEN",
+ "seed": 99,
+ "motion": "wipe",
+ "cover": {
+  "title": "Open the app. Know what is next.",
+  "kicker": "This week's list and your journey bar."
+ },
+ "cta": {
+  "show": "Start your free week",
+  "say": "See your own Today screen. Start your free week. Link in bio.",
+  "url": "/signup",
+  "note": "7 days of full access. No card needed.",
+  "banner": "Your first week is free. Link in bio."
+ },
+ "lines": [
+  {"show": "What do I study today?", "say": "What do I study today?"},
+  {"kind": "hook", "show": "Open Today. It is all there.", "say": "Open Today. It's all there."},
+  {"show": "This week's list, about 5 to 6 hours", "say": "This week's list, about five to six hours."},
+  {"show": "Tick items off in any order", "say": "Tick them off in any order."},
+  {"show": "A journey bar to your exam date", "say": "And a journey bar to your end date."}
+ ]
+}

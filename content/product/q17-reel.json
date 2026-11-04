@@ -1,0 +1,25 @@
+{
+ "out_dir": "post-17",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 17,
+ "motion": "drift",
+ "cover": {
+  "title": "MRSA treated. Stop precautions?",
+  "kicker": "A trap the exam likes to set."
+ },
+ "cta": {
+  "show": "Find your weak areas free",
+  "say": "Find your weak areas free. Link in bio.",
+  "url": "/diagnostic",
+  "note": "About 30 questions. No account needed.",
+  "banner": "Free readiness test. Link in bio."
+ },
+ "lines": [
+  {"show": "MRSA treated. Stop precautions?", "say": "MRSA treated. Stop precautions?"},
+  {"kind": "hook", "show": "Pause. Yes or no?", "say": "Pause."},
+  {"show": "No. Not until clearance criteria are met", "say": "No. Not until formal clearance criteria are met."},
+  {"show": "Treated is not the same as cleared", "say": "Treated is not the same as cleared."}
+ ]
+}

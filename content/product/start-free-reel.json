@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/start-free",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "STEP 10: START FREE",
+ "seed": 110,
+ "motion": "push",
+ "cover": {
+  "title": "Try it all for 7 days, free?",
+  "kicker": "No card. Then choose your plan."
+ },
+ "cta": {
+  "show": "Compare plans",
+  "say": "Start free, then compare plans. Link in bio.",
+  "url": "/pricing",
+  "note": "7 days free. Paid once, not monthly.",
+  "banner": "7 days free, no card. Link in bio."
+ },
+ "lines": [
+  {"show": "Try it all for 7 days, free?", "say": "Try it all for seven days, free."},
+  {"kind": "hook", "show": "No card needed", "say": "No card needed."},
+  {"show": "Then 8, 12, 16 or 20 weeks, paid once", "say": "Then pick eight, twelve, sixteen or twenty weeks, paid once."},
+  {"show": "Or a monthly Self-study pass", "say": "Or a monthly Self-study pass."},
+  {"show": "Free topics and flashcards keep working", "say": "Either way, the free topics and flashcards keep working."}
+ ]
+}
