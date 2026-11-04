@@ -52,3 +52,10 @@ Facebook and YouTube, and a matching "link in bio" line on Instagram. Vary the w
 ## Buffer free cap
 10 scheduled posts per channel. At three a day, about three days fit. Queue in date order;
 the rest goes to content/pending.json for the next run.
+
+## Results check, 4 Nov (24 Oct to 4 Nov, Buffer)
+- Facebook: 43 posts, about 1,600 impressions, 2 reactions, 0 clicks.
+- Instagram: 42 posts, about 500 views, reach about 470, 1 save, 0 followers. Average Reel watch time about 1.3 seconds.
+- YouTube: 13 Shorts, about 230 views, 1 like.
+- Reels carry nearly all reach; Stories and single cards are near zero. Quiz Reels and the case-studies Reel did best.
+- Watch time is the problem to fix: viewers leave in the first second. Next builds: put the question on screen and say it in the first second (first spoken line under 6 words), keep Reels nearer 15 seconds than 25, and start with a direct question to the viewer.
