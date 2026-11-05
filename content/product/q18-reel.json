@@ -1,0 +1,26 @@
+{
+ "out_dir": "post-18",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 18,
+ "motion": "slide",
+ "cover": {
+  "title": "Needlestick. Squeeze it out?",
+  "kicker": "The first five minutes matter."
+ },
+ "cta": {
+  "show": "Try 8 free questions",
+  "say": "Try eight free questions. Link in bio.",
+  "url": "/sample-questions",
+  "note": "Every answer explained. No sign-up.",
+  "banner": "8 free questions. Link in bio."
+ },
+ "lines": [
+  {"show": "Needlestick. Squeeze it out?", "say": "Needlestick. Squeeze it out?"},
+  {"kind": "hook", "show": "Pause. Yes or no?", "say": "Pause."},
+  {"show": "No. Wash with soap and water", "say": "No. Wash it with soap and water."},
+  {"show": "Report it now, not at the end of shift", "say": "Report it now, not at the end of shift."},
+  {"show": "HIV prophylaxis works best within hours", "say": "Prophylaxis works best started within hours."}
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "out_dir": "product/mock-day",
+ "slides": [
+  {"theme": "editorial", "eyebrow": "MOCK EXAM DAY", "title": "Mock exam day: <em>what you get</em>", "lead": "A full rehearsal before the real thing.", "body": "Swipe to see how it runs"},
+  {"theme": "editorial", "eyebrow": "THE FORMAT", "title": "Adaptive, <em>like the exam</em>", "points": ["85 to 150 questions", "Ends when your result is clear, or at 150", "No going back to earlier questions"]},
+  {"theme": "editorial", "eyebrow": "THE CLOCK", "title": "Time it <em>for real</em>", "points": ["About 2.5 hours", "A 5-hour limit, as on exam day", "Optional breaks at 2 and 3.5 hours"]},
+  {"theme": "editorial", "eyebrow": "THE REPORT", "title": "What you see <em>after</em>", "points": ["A readiness report for each area", "Your plan rebalances around it", "A note says what moved"]},
+  {"theme": "editorial", "eyebrow": "IN EVERY PLAN", "title": "Mocks are <em>built in</em>", "lead": "They sit in fixed weeks of your plan. Add more any time.", "body": "See plans at nclexready.com.au/pricing"}
+ ]
+}

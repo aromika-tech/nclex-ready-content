@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/readiness-2",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "STEP 1: READINESS TEST",
+ "seed": 121,
+ "motion": "pull",
+ "cover": {
+  "title": "Not sure where to start?",
+  "kicker": "30 questions. Then you will know."
+ },
+ "cta": {
+  "show": "Take the free readiness test",
+  "say": "Take the free readiness test. Link in bio.",
+  "url": "/diagnostic",
+  "note": "No account needed.",
+  "banner": "Free readiness test. Link in bio."
+ },
+ "lines": [
+  {"show": "Not sure where to start?", "say": "Not sure where to start?"},
+  {"kind": "hook", "show": "About 30 questions", "say": "Answer about thirty questions."},
+  {"show": "30 to 45 minutes, no account needed", "say": "Thirty to forty-five minutes. No account needed."},
+  {"show": "See where you stand in each area", "say": "See where you stand in each area."},
+  {"show": "Your plan starts with your weakest", "say": "Your plan starts with your weakest."}
+ ]
+}
