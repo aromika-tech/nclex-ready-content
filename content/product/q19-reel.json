@@ -1,0 +1,25 @@
+{
+ "out_dir": "post-19",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 19,
+ "motion": "drift",
+ "cover": {
+  "title": "Slid down the bed. Just lift?",
+  "kicker": "The safe answer is rarely a lift."
+ },
+ "cta": {
+  "show": "Practise free questions",
+  "say": "Practise free questions, no sign-up. Link in bio.",
+  "url": "/sample-questions",
+  "note": "8 questions, every answer explained.",
+  "banner": "Free practice questions. Link in bio."
+ },
+ "lines": [
+  {"show": "Slid down the bed. Just lift?", "say": "Slid down the bed. Just lift?"},
+  {"kind": "hook", "show": "Pause. Lift or not?", "say": "Pause."},
+  {"show": "No. Use a slide sheet or a hoist", "say": "No. Use a slide sheet, or a hoist."},
+  {"show": "Assess the task, the person, the load", "say": "Assess the task, the person and the load first."}
+ ]
+}

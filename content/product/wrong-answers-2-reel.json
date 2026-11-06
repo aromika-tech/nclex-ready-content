@@ -1,0 +1,25 @@
+{
+ "out_dir": "product/wrong-answers-2",
+ "theme": "notecard",
+ "style": "fact",
+ "eyebrow": "STEP 3: PRACTICE TESTS",
+ "seed": 333,
+ "motion": "push",
+ "cover": {
+  "title": "Why was my answer wrong?",
+  "kicker": "Every option, explained."
+ },
+ "cta": {
+  "show": "Start 7 days free",
+  "say": "Start seven days free, no card. Link in bio.",
+  "url": "/signup",
+  "note": "Full access. No card needed.",
+  "banner": "7 days free. Link in bio."
+ },
+ "lines": [
+  {"show": "Why was my answer wrong?", "say": "Why was my answer wrong?"},
+  {"kind": "hook", "show": "Every option, explained", "say": "See every option, explained."},
+  {"show": "Practice tests of 25 questions", "say": "Practice tests of twenty-five questions."},
+  {"show": "Missed ones come back each week", "say": "Missed ones come back each week."}
+ ]
+}

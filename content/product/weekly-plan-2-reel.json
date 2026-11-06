@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/weekly-plan-2",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "STEP 2: YOUR WEEKLY PLAN",
+ "seed": 222,
+ "motion": "wipe",
+ "cover": {
+  "title": "Too much to study, no plan?",
+  "kicker": "One list a week. That is it."
+ },
+ "cta": {
+  "show": "Pick your plan length",
+  "say": "Pick eight, twelve, sixteen or twenty weeks. Link in bio.",
+  "url": "/pricing",
+  "note": "Paid once. First 7 days free.",
+  "banner": "See plans and prices. Link in bio."
+ },
+ "lines": [
+  {"show": "Too much to study, no plan?", "say": "Too much to study, and no plan?"},
+  {"kind": "hook", "show": "One list a week", "say": "Get one list a week."},
+  {"show": "About 5 to 6 hours", "say": "About five to six hours."},
+  {"show": "Any order, on any day", "say": "Do it in any order, on any day."},
+  {"show": "It adapts after each weekly check", "say": "It adapts after each weekly check."}
+ ]
+}
