@@ -1,0 +1,26 @@
+{
+ "out_dir": "product/lessons-2",
+ "theme": "editorial",
+ "style": "fact",
+ "eyebrow": "STEP 4: SHORT LESSONS",
+ "seed": 444,
+ "motion": "pull",
+ "cover": {
+  "title": "Short on study time?",
+  "kicker": "One topic, 25 to 30 minutes."
+ },
+ "cta": {
+  "show": "Start your free week",
+  "say": "Start your free week, no card. Link in bio.",
+  "url": "/signup",
+  "note": "7 days of full access. No card needed.",
+  "banner": "Your first week is free. Link in bio."
+ },
+ "lines": [
+  {"show": "Short on study time?", "say": "Short on study time?"},
+  {"kind": "hook", "show": "One topic, 25 to 30 minutes", "say": "One topic takes twenty-five to thirty minutes."},
+  {"show": "Read it, then a worked example", "say": "Read it, then a worked example."},
+  {"show": "Flashcards, questions, a mini case", "say": "Then flashcards, questions and a mini case."},
+  {"show": "Highest exam weight first", "say": "Your plan puts the highest exam weight first."}
+ ]
+}

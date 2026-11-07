@@ -1,0 +1,10 @@
+{
+ "out_dir": "product/first-to-exam",
+ "slides": [
+  {"theme": "notecard", "eyebrow": "YOUR JOURNEY", "title": "From first test to <em>exam day</em>", "lead": "What the path looks like, start to finish.", "body": "Swipe to see each step"},
+  {"theme": "notecard", "eyebrow": "START", "title": "A free <em>readiness test</em>", "points": ["About 30 questions", "30 to 45 minutes", "Your starting point in each area"]},
+  {"theme": "notecard", "eyebrow": "EVERY WEEK", "title": "One <em>list</em> a week", "points": ["About 5 to 6 hours", "Topics, practice tests, a case study", "A 15-question weekly check"]},
+  {"theme": "notecard", "eyebrow": "ALONG THE WAY", "title": "Mocks in <em>fixed weeks</em>", "points": ["A readiness report by area", "The plan adapts after each check and mock", "A journey bar to your end date"]},
+  {"theme": "notecard", "eyebrow": "YOUR PLAN", "title": "8, 12, 16 or <em>20 weeks</em>", "lead": "Paid once. Access for the plan length plus 2 weeks.", "body": "See plans at nclexready.com.au/pricing"}
+ ]
+}

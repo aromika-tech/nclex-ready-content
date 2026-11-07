@@ -1,0 +1,26 @@
+{
+ "out_dir": "post-20",
+ "theme": "chart",
+ "style": "fact",
+ "eyebrow": "QUICK QUIZ",
+ "seed": 20,
+ "motion": "slide",
+ "cover": {
+  "title": "Bed rails up. Restraint or not?",
+  "kicker": "Intent and effect decide."
+ },
+ "cta": {
+  "show": "Find your weak areas free",
+  "say": "Find your weak areas with the free readiness test. Link in bio.",
+  "url": "/diagnostic",
+  "note": "About 30 questions. Free.",
+  "banner": "Free readiness test. Link in bio."
+ },
+ "lines": [
+  {"show": "Bed rails up. Restraint or not?", "say": "Bed rails up. Restraint or not?"},
+  {"kind": "hook", "show": "Pause. Yes or no?", "say": "Pause."},
+  {"show": "It can be. Intent and effect decide", "say": "It can be. Intent and effect decide."},
+  {"show": "Try less restrictive options first", "say": "Try less restrictive options first."},
+  {"show": "Last resort, time-limited, always reviewed", "say": "It is a last resort, time-limited, and always reviewed."}
+ ]
+}
